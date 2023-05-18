@@ -15,6 +15,7 @@ namespace ProiectMVP.Data
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            dlaskjfklsajfkl;
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(connectionString);
 
