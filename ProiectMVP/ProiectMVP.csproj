@@ -9,6 +9,13 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Assets\Img\ClassIcon.png" />
+    <None Remove="Assets\Img\LogoNew.png" />
+    <None Remove="Assets\Img\SemesterIcon.png" />
+    <None Remove="Assets\Img\SettingsIcon.png" />
+    <None Remove="Assets\Img\StudentIcon.png" />
+    <None Remove="Assets\Img\SubjectIcon.jpg" />
+    <None Remove="Assets\Img\TeacherIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +40,16 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Img\ClassIcon.png" />
+    <Resource Include="Assets\Img\LogoNew.png" />
+    <Resource Include="Assets\Img\SemesterIcon.png" />
+    <Resource Include="Assets\Img\SettingsIcon.png" />
+    <Resource Include="Assets\Img\StudentIcon.png" />
+    <Resource Include="Assets\Img\SubjectIcon.jpg" />
+    <Resource Include="Assets\Img\TeacherIcon.png" />
   </ItemGroup>
 
 </Project>
