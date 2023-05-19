@@ -25,11 +25,11 @@ namespace ProiectMVP
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(CreateYourDbContextOptions());
-            services.AddSingleton<DbContext>();
+            services.AddSingleton<AppDbContext>();
             services.AddSingleton<MainWindow>();
         }
 
-        private DbContextOptions<DbContext> CreateYourDbContextOptions()
+        private DbContextOptions<AppDbContext> CreateYourDbContextOptions()
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
@@ -37,7 +37,7 @@ namespace ProiectMVP
                 .Build();
 
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-            var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             optionsBuilder.UseSqlServer(connectionString);
             return optionsBuilder.Options;
         }

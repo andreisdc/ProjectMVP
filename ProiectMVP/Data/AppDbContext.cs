@@ -11,6 +11,9 @@ namespace ProiectMVP.Data
 
         public DbSet<Elev> Elevi { get; set; }
         public DbSet<Clasa> Clase { get; set; }
+        public DbSet<Profesor> Profesori { get; set; }
+        public DbSet<Materie> Materii { get; set; }
+        public DbSet<ElevMaterie> EleviMaterii { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
