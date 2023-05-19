@@ -1,14 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ProiectMVP
 {
@@ -30,11 +25,17 @@ namespace ProiectMVP
         {
             services.AddSingleton(CreateYourDbContextOptions());
             services.AddSingleton<DbContext>();
+            services.AddSingleton<MainWindow>();
         }
 
         private DbContextOptions<DbContext> CreateYourDbContextOptions()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
             var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
             optionsBuilder.UseSqlServer(connectionString);
             return optionsBuilder.Options;

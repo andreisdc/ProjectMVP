@@ -11,11 +11,11 @@ namespace ProiectMVP.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "facultate");
+                name: "liceu");
 
             migrationBuilder.CreateTable(
                 name: "Students",
-                schema: "facultate",
+                schema: "liceu",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -34,7 +34,7 @@ namespace ProiectMVP.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Students",
-                schema: "facultate");
+                schema: "liceu");
         }
     }
 }
