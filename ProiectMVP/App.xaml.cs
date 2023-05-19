@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Windows;
+using ProiectMVP.Data;
 
 namespace ProiectMVP
 {
@@ -24,11 +25,11 @@ namespace ProiectMVP
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(CreateYourDbContextOptions());
-            services.AddSingleton<DbContext>();
+            services.AddSingleton<AppDbContext>();
             services.AddSingleton<MainWindow>();
         }
 
-        private DbContextOptions<DbContext> CreateYourDbContextOptions()
+        private DbContextOptions<AppDbContext> CreateYourDbContextOptions()
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
@@ -36,13 +37,21 @@ namespace ProiectMVP
                 .Build();
 
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-            var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             optionsBuilder.UseSqlServer(connectionString);
             return optionsBuilder.Options;
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider
+                    .GetRequiredService<AppDbContext>();
+
+                dbContext.Database.Migrate();
+            }
+
             var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
             base.OnStartup(e);
