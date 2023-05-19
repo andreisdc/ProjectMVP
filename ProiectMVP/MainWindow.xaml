@@ -5,8 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProiectMVP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        ResizeMode="NoResize"
+        Window.Background="CadetBlue"
+        WindowStartupLocation="CenterScreen"
+        Title="Catalog Virtual" Height="750" Width="500">
 
-    </Grid>
+	<Grid>
+		<!-- STARTUP PAGE -->
+
+		<Grid.RowDefinitions>
+			<!-- TITLE -->
+			<RowDefinition Height="250"></RowDefinition>
+			<!-- USERNAME -->
+			<RowDefinition Height="100"></RowDefinition>
+			<!-- PASSWORD -->
+			<RowDefinition Height="100"></RowDefinition>
+			<!-- LOG_IN BUTTON -->
+			<RowDefinition Height="100"></RowDefinition>
+			<!-- INFO BUTTON -->
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+
+		<!-- TITLE -->
+		<Label FontSize="20" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Content="LICEUL TEORETIC TRANSILVANIA BRASOV" Height="36" Width="378" ></Label>
+
+		<!-- USERNAME -->
+		<TextBox Name="InputUsername" Grid.Row="1" Margin="50,30,50,30" FontSize="25" TextAlignment="Left" />
+
+		<!-- PASSWORD -->
+		<PasswordBox Name="InputPassword" Grid.Row="2" Margin="50,30,50,30" FontSize="25" VerticalContentAlignment="Center" />
+
+		<!-- LOG_IN BUTTON -->
+		<Button Name="ButtonLogin" Grid.Row="3" Margin="175,28,175,28" FontSize="15" Content="LOG IN"/>
+
+		<!-- INFO BUTTON -->
+		<Label Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Content="DACA NU AI CONT, CONTACTEAZA ADMINUL APLICATIEI" Foreground="AliceBlue" Height="30" Width="388"></Label>
+		<Button Name="ButtonInfo" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Content="INFORMATII" BorderBrush="Transparent" Background="Transparent" Foreground="AliceBlue" Height="24" Width="84"/>
+	</Grid>
 </Window>
