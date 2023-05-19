@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProiectMVP.Data;
 
@@ -11,13 +12,15 @@ using ProiectMVP.Data;
 namespace ProiectMVP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230519002113_WholeStructureForScoala")]
+    partial class WholeStructureForScoala
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("liceu")
+                .HasDefaultSchema("facultate")
                 .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -35,7 +38,7 @@ namespace ProiectMVP.Migrations
 
                     b.HasIndex("ProfesoriId");
 
-                    b.ToTable("MaterieProfesor", "liceu");
+                    b.ToTable("MaterieProfesor", "facultate");
                 });
 
             modelBuilder.Entity("ProiectMVP.Models.Clasa", b =>
@@ -55,7 +58,7 @@ namespace ProiectMVP.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clase", "liceu");
+                    b.ToTable("Clase", "facultate");
                 });
 
             modelBuilder.Entity("ProiectMVP.Models.Elev", b =>
@@ -81,7 +84,7 @@ namespace ProiectMVP.Migrations
 
                     b.HasIndex("ClasaId");
 
-                    b.ToTable("Elevi", "liceu");
+                    b.ToTable("Elevi", "facultate");
                 });
 
             modelBuilder.Entity("ProiectMVP.Models.ElevMaterie", b =>
@@ -109,7 +112,7 @@ namespace ProiectMVP.Migrations
 
                     b.HasIndex("MaterieId");
 
-                    b.ToTable("ElevMaterie", "liceu");
+                    b.ToTable("ElevMaterie", "facultate");
                 });
 
             modelBuilder.Entity("ProiectMVP.Models.Materie", b =>
@@ -126,7 +129,7 @@ namespace ProiectMVP.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Materie", "liceu");
+                    b.ToTable("Materie", "facultate");
                 });
 
             modelBuilder.Entity("ProiectMVP.Models.Profesor", b =>
@@ -156,7 +159,7 @@ namespace ProiectMVP.Migrations
                     b.HasIndex("ClasaDiriginteId")
                         .IsUnique();
 
-                    b.ToTable("Profesor", "liceu");
+                    b.ToTable("Profesor", "facultate");
                 });
 
             modelBuilder.Entity("MaterieProfesor", b =>
