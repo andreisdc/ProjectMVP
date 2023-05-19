@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-<<<<<<<< Updated upstream:ProiectMVP/MainWindow.xaml.cs
 namespace ProiectMVP
 {
     /// <summary>
@@ -26,18 +25,4 @@ namespace ProiectMVP
             InitializeComponent();
         }
     }
-========
-namespace Project.Views.StartUp.LogIn
-{
-	/// <summary>
-	/// Interaction logic for LogInView.xaml
-	/// </summary>
-	public partial class LogInView : Page
-	{
-		public LogInView()
-		{
-			InitializeComponent();
-		}
-	}
->>>>>>>> Stashed changes:Project/Views/StartUp/LogIn/LogInView.xaml.cs
 }
