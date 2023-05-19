@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Windows;
+using ProiectMVP.Data;
 
 namespace ProiectMVP
 {
@@ -43,6 +44,14 @@ namespace ProiectMVP
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider
+                    .GetRequiredService<AppDbContext>();
+
+                dbContext.Database.Migrate();
+            }
+
             var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
             base.OnStartup(e);
