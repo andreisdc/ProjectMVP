@@ -9,6 +9,9 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Title="AdminView" Height="650" Width="1100">
+
+	
+	
 	<Grid>
 		<!-- ADMIN VIEW -->
 

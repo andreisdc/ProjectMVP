@@ -3,10 +3,75 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProiectMVP.View.Elev"
+        xmlns:local="clr-namespace:ProiectMVP.View.Admin"
         mc:Ignorable="d"
-        Title="ElevView" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Background="AliceBlue"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="AdminView" Height="650" Width="1100">
+	<Grid>
+		<!-- ADMIN VIEW -->
+
+		<Grid.ColumnDefinitions>
+			<!-- MENU -->
+			<ColumnDefinition Width="216"></ColumnDefinition>
+			<!-- PAGE_SELECT -->
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+
+
+		<!-- MENU -->
+		<Grid Grid.Column="0" Background="MediumPurple">
+			<!-- MENU_DEFINITION -->
+			<Grid.RowDefinitions>
+				<!-- LOGO -->
+				<RowDefinition Height="150"></RowDefinition>
+				<!-- TEACHER_PAGE -->
+				<RowDefinition Height="70"></RowDefinition>
+				<!-- STUDENT_PAGE -->
+				<RowDefinition Height="70"></RowDefinition>
+				<!-- CLASS_PAGE -->
+				<RowDefinition Height="70"></RowDefinition>
+				<!-- SUBJECT_PAGE -->
+				<RowDefinition Height="70"></RowDefinition>
+				<!-- SETTINGS_PAGE -->
+				<RowDefinition Height="*"></RowDefinition>
+				<!-- SETTINGS_PAGE -->
+				<RowDefinition Height="70"></RowDefinition>
+			</Grid.RowDefinitions>
+
+
+
+			<!-- LOGO -->
+			<Image Grid.Row="0" Source="../../Assets/Img/LogoNew.png"></Image>
+
+			<!-- TEACHERS_PAGE -->
+			<TextBlock Grid.Row="1" Margin="100, 0, 30, 0" TextAlignment="Center" VerticalAlignment="Center" Text="TEACHER" FontSize="20"></TextBlock>
+			<Image Margin="10" Grid.Row="1" Source="../../Assets/Img/TeacherIcon.png" HorizontalAlignment="Left"></Image>
+
+			<!-- STUDENT_PAGE -->
+			<TextBlock Grid.Row="2" Margin="100,0,14,0" TextAlignment="Center" VerticalAlignment="Center" Text="STUDENT" FontSize="20"></TextBlock>
+			<Image Margin="4,69,0,3" Grid.Row="1" Source="../../Assets/Img/StudentIcon.png" HorizontalAlignment="Left" Grid.RowSpan="2" Width="66"></Image>
+
+			<!-- CLASS_PAGE -->
+			<TextBlock Grid.Row="3" Margin="100, 0, 30, 0" TextAlignment="Center" VerticalAlignment="Center" Text="CLASS" FontSize="20"></TextBlock>
+			<Image Margin="10" Grid.Row="3" Source="../../Assets/Img/ClassIcon.png" HorizontalAlignment="Left"></Image>
+
+			<!-- SUBJECT_PAGE -->
+			<TextBlock Grid.Row="4" Margin="97,0,19,0" TextAlignment="Center" VerticalAlignment="Center" Text="SUBJECT" FontSize="20"></TextBlock>
+			<Image Margin="10" Grid.Row="4" Source="../../Assets/Img/SubjectIcon.jpg" HorizontalAlignment="Left"></Image>
+
+			<!-- SETTINGS_PAGE -->
+			<TextBlock Grid.Row="6" Margin="97,0,17,0" TextAlignment="Center" VerticalAlignment="Center" Text="SETTINGS" FontSize="20"></TextBlock>
+			<Image Margin="10" Grid.Row="6" Source="../../Assets/Img/SettingsIcon.png" HorizontalAlignment="Left"></Image>
+
+
+
+		</Grid>
+
+
+
+
+
+	</Grid>
 </Window>
