@@ -1,0 +1,72 @@
+﻿<Window x:Class="ProiectMVP.Views.Profesor.ProfesorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProiectMVP.Views.Admin"
+        mc:Ignorable="d"
+        Background="AliceBlue"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="AdminView" Height="650" Width="1100">
+    <Window.Resources>
+        <ResourceDictionary Source="../../Assets/Style/RadioButtonStyle.xaml"></ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <!-- ADMIN VIEW -->
+        <Grid.ColumnDefinitions>
+            <!-- MENU -->
+            <ColumnDefinition Width="216"></ColumnDefinition>
+            <!-- PAGE_SELECT -->
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+        <!-- MENU -->
+        <Grid Grid.Column="0" Background="DarkSeaGreen">
+            <!-- MENU_DEFINITION -->
+            <Grid.RowDefinitions>
+                <!-- LOGO -->
+                <RowDefinition Height="150"></RowDefinition>
+                <!-- TEACHER_PAGE -->
+                <RowDefinition Height="70"></RowDefinition>
+                <!-- STUDENT_PAGE -->
+                <RowDefinition Height="70"></RowDefinition>
+                <!-- CLASS_PAGE -->
+                <RowDefinition Height="70"></RowDefinition>
+                <!-- SUBJECT_PAGE -->
+                <RowDefinition Height="70"></RowDefinition>
+                <!-- SETTINGS_PAGE -->
+                <RowDefinition Height="*"></RowDefinition>
+                <!-- SETTINGS_PAGE -->
+                <RowDefinition Height="70"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+
+            <!-- LOGO -->
+            <Image Grid.Row="0" Source="../../Assets/Img/LogoNew.png"></Image>
+            <!-- TEACHERS_PAGE -->
+            <RadioButton Grid.Row="1" Content="Teacher" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
+            <!-- STUDENT_PAGE -->
+            <RadioButton Grid.Row="2" Content="Student" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
+
+            <!-- CLASS_PAGE -->
+            <RadioButton Grid.Row="3" Content="Class" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
+
+            <!-- SUBJECT_PAGE -->
+            <RadioButton Grid.Row="4" Content="Subject" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
+
+            <!-- SETTINGS_PAGE -->
+            <RadioButton Grid.Row="6" Content="Settings" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
+
+
+        </Grid>
+
+
+
+
+
+    </Grid>
+</Window>
