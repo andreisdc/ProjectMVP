@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,10 +22,16 @@ namespace ProiectMVP
     /// </summary>
     public partial class MainWindow : Window
     {
+	    public static MainWindow instance;
         public MainWindow()
         {
+	        instance = this;
             InitializeComponent();
             DataContext = new MainWindowViewModel();
         }
-    }
+
+		private void ButtonLogin_Click(object sender, RoutedEventArgs e) {
+
+		}
+	}
 }

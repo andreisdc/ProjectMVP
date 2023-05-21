@@ -8,5 +8,6 @@ namespace ProiectMVP.ViewModel
 {
 	internal class AdminViewModel : BaseViewModel
 	{
+
 	}
 }

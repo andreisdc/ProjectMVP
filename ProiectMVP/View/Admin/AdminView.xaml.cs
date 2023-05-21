@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProiectMVP.ViewModel;
 
 namespace ProiectMVP.View.Admin
 {
@@ -22,6 +23,7 @@ namespace ProiectMVP.View.Admin
 		public AdminView()
 		{
 			InitializeComponent();
+			DataContext = new AdminViewModel();
 		}
 	}
 }

@@ -1,29 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
-using ProiectMVP.Command.ChangeViewCommand;
+using GalaSoft.MvvmLight.Command;
+using ProiectMVP.View.Admin;
+
 
 namespace ProiectMVP.ViewModel
 {
-	public class MainWindowViewModel: BaseViewModel
+	public class MainWindowViewModel : BaseViewModel
 	{
-		private BaseViewModel _selectedViewModel;
+		public ICommand ChangeViewCommand { get; }
 
-		public BaseViewModel SelectedViewModel
+	public MainWindowViewModel()
 		{
-			get { return _selectedViewModel;}
-			set { _selectedViewModel = value; }
+			ChangeViewCommand = new RelayCommand(ChangeView);
 		}
 
-		public ICommand ChangeView { get; set; }
 
-		public MainWindowViewModel()
+		public void ChangeView(object parameter)
 		{
-			ChangeView = new ChangeViewCommand(this);
+			var windowView = new MainWindow();
+			var mainWindowViewModel = (MainWindowViewModel) windowView.DataContext;
+			AdminView newWindow = new AdminView();
+			newWindow.Show();
+			//MainWindow.instance.Close();
+			try
+			{
+				Application.Current.MainWindow?.Close();
+			} catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 		}
-
 	}
 }
