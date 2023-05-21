@@ -9,43 +9,43 @@ namespace ProiectMVP.Data
         {
         }
 
-        public DbSet<Elev> Elevi { get; set; }
-        public DbSet<Clasa> Clase { get; set; }
-        public DbSet<Profesor> Profesori { get; set; }
-        public DbSet<Materie> Materii { get; set; }
-        public DbSet<ElevMaterie> EleviMaterii { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Class> Classes { get; set; }
+        public DbSet<Professor> Professors { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<StudentSubject> StudentSubjects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("liceu");
+            modelBuilder.HasDefaultSchema("highSchool");
 
-            modelBuilder.Entity<Elev>()
-                .HasOne(e => e.Clasa)
-                .WithMany(c => c.Elevi)
-                .HasForeignKey(e => e.ClasaId)
+            modelBuilder.Entity<Student>()
+                .HasOne(e => e.Class)
+                .WithMany(c => c.Students)
+                .HasForeignKey(e => e.ClassId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<ElevMaterie>()
-                .HasKey(em => new { em.ElevId, em.MaterieId });
+            modelBuilder.Entity<StudentSubject>()
+                .HasKey(em => new { ElevId = em.StudentId, MaterieId = em.SubjectId });
 
-            modelBuilder.Entity<ElevMaterie>()
-                .HasOne(em => em.Elev)
-                .WithMany(e => e.EleviMaterii)
-                .HasForeignKey(em => em.ElevId);
+            modelBuilder.Entity<StudentSubject>()
+                .HasOne(em => em.Student)
+                .WithMany(e => e.StudentSubjects)
+                .HasForeignKey(em => em.StudentId);
 
-            modelBuilder.Entity<ElevMaterie>()
-                .HasOne(em => em.Materie)
-                .WithMany(m => m.EleviMaterii)
-                .HasForeignKey(em => em.MaterieId);
+            modelBuilder.Entity<StudentSubject>()
+                .HasOne(em => em.Subject)
+                .WithMany(m => m.StudentSubjects)
+                .HasForeignKey(em => em.SubjectId);
 
-            modelBuilder.Entity<Profesor>()
-                .HasMany(p => p.Materii)
-                .WithMany(m => m.Profesori);
+            modelBuilder.Entity<Professor>()
+                .HasMany(p => p.Subjects)
+                .WithMany(m => m.Professors);
 
-            modelBuilder.Entity<Profesor>()
-                .HasOne(p => p.ClasaDiriginte)
-                .WithOne(c => c.ProfesorDiriginte)
-                .HasForeignKey<Profesor>(p => p.ClasaDiriginteId)
+            modelBuilder.Entity<Professor>()
+                .HasOne(p => p.ClassMaster)
+                .WithOne(c => c.ClassMaster)
+                .HasForeignKey<Professor>(p => p.ClassMasterId)
                 .OnDelete(DeleteBehavior.Cascade);
 
 
