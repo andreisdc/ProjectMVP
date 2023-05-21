@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using ProiectMVP.Models;
 using ProiectMVP.View.Admin;
+using ProiectMVP.View.Elev;
 using ProiectMVP.View.Profesor;
 using ProiectMVP.ViewModel;
 
@@ -29,7 +30,7 @@ namespace ProiectMVP.Command.ChangeViewCommand
  
 		public void Execute(object? parameter)
 		{
-			ProfesorView newWindow = new ProfesorView();
+			ElevView newWindow = new ElevView();
 			newWindow.Show();
 			MainWindow? mainWindow = Application.Current.MainWindow as MainWindow;
 			mainWindow.Close();
