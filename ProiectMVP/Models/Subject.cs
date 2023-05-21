@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProiectMVP.Models
 {
-    public class Materie
+    public class Subject
     {
         public int Id { get; set; }
-        public string Nume { get; set; }
-        public List<ElevMaterie> EleviMaterii { get; set; }
-        public List<Profesor> Profesori { get; set; }
+        public string Name { get; set; }
+        public List<StudentSubject> StudentSubjects { get; set; }
+        public List<Professor> Professors { get; set; }
     }
 }
