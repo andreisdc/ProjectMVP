@@ -13,17 +13,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ProiectMVP.ViewModel;
+using ProiectMVP.ViewModels;
 
-namespace ProiectMVP
+namespace ProiectMVP.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindowView : Window
     {
-	    public static MainWindow instance;
-        public MainWindow()
+	    public static MainWindowView instance;
+
+        public MainWindowView()
         {
 	        instance = this;
             InitializeComponent();

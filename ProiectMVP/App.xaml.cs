@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Windows;
 using ProiectMVP.Data;
+using ProiectMVP.Views;
 
 namespace ProiectMVP
 {
@@ -26,7 +27,7 @@ namespace ProiectMVP
         {
             services.AddSingleton(CreateYourDbContextOptions());
             services.AddSingleton<AppDbContext>();
-            services.AddSingleton<MainWindow>();
+            services.AddSingleton<MainWindowView>();
         }
 
         private DbContextOptions<AppDbContext> CreateYourDbContextOptions()
@@ -52,7 +53,7 @@ namespace ProiectMVP
                 dbContext.Database.Migrate();
             }
 
-            var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+            var mainWindow = serviceProvider.GetRequiredService<MainWindowView>();
             mainWindow.Show();
             base.OnStartup(e);
         }

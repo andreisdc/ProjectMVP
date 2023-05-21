@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using ProiectMVP.Views;
 using ProiectMVP.Views.Admin;
 
 
@@ -21,10 +22,9 @@ namespace ProiectMVP.ViewModels
             ChangeViewCommand = new RelayCommand(ChangeView);
         }
 
-
         public void ChangeView(object parameter)
         {
-            var windowView = new MainWindow();
+            var windowView = new MainWindowView();
             var mainWindowViewModel = (MainWindowViewModel)windowView.DataContext;
             AdminView newWindow = new AdminView();
             newWindow.Show();
