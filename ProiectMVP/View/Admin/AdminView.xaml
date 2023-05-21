@@ -10,9 +10,12 @@
         ResizeMode="NoResize"
         Title="AdminView" Height="650" Width="1100">
 
-	
-	
-	<Grid>
+	<Window.Resources>
+		<ResourceDictionary Source="../../Assets/Style/RadioButtonStyle.xaml"></ResourceDictionary>
+	</Window.Resources>
+
+
+<Grid>
 		<!-- ADMIN VIEW -->
 
 		<Grid.ColumnDefinitions>
@@ -47,26 +50,19 @@
 
 			<!-- LOGO -->
 			<Image Grid.Row="0" Source="../../Assets/Img/LogoNew.png"></Image>
-
 			<!-- TEACHERS_PAGE -->
-			<TextBlock Grid.Row="1" Margin="100, 0, 30, 0" TextAlignment="Center" VerticalAlignment="Center" Text="TEACHER" FontSize="20"></TextBlock>
-			<Image Margin="10" Grid.Row="1" Source="../../Assets/Img/TeacherIcon.png" HorizontalAlignment="Left"></Image>
-
+			<RadioButton Grid.Row="1" Content="Teacher" Style="{StaticResource ButtonStyleAdmin}"></RadioButton>
 			<!-- STUDENT_PAGE -->
-			<TextBlock Grid.Row="2" Margin="100,0,14,0" TextAlignment="Center" VerticalAlignment="Center" Text="STUDENT" FontSize="20"></TextBlock>
-			<Image Margin="4,69,0,3" Grid.Row="1" Source="../../Assets/Img/StudentIcon.png" HorizontalAlignment="Left" Grid.RowSpan="2" Width="66"></Image>
+			<RadioButton Grid.Row="2" Content="Student" Style="{StaticResource ButtonStyleAdmin}"></RadioButton>
 
 			<!-- CLASS_PAGE -->
-			<TextBlock Grid.Row="3" Margin="100, 0, 30, 0" TextAlignment="Center" VerticalAlignment="Center" Text="CLASS" FontSize="20"></TextBlock>
-			<Image Margin="10" Grid.Row="3" Source="../../Assets/Img/ClassIcon.png" HorizontalAlignment="Left"></Image>
+			<RadioButton Grid.Row="3" Content="Class" Style="{StaticResource ButtonStyleAdmin}"></RadioButton>
 
 			<!-- SUBJECT_PAGE -->
-			<TextBlock Grid.Row="4" Margin="97,0,19,0" TextAlignment="Center" VerticalAlignment="Center" Text="SUBJECT" FontSize="20"></TextBlock>
-			<Image Margin="10" Grid.Row="4" Source="../../Assets/Img/SubjectIcon.jpg" HorizontalAlignment="Left"></Image>
+			<RadioButton Grid.Row="4" Content="Subject" Style="{StaticResource ButtonStyleAdmin}"></RadioButton>
 
 			<!-- SETTINGS_PAGE -->
-			<TextBlock Grid.Row="6" Margin="97,0,17,0" TextAlignment="Center" VerticalAlignment="Center" Text="SETTINGS" FontSize="20"></TextBlock>
-			<Image Margin="10" Grid.Row="6" Source="../../Assets/Img/SettingsIcon.png" HorizontalAlignment="Left"></Image>
+			<RadioButton Grid.Row="6" Content="Settings" Style="{StaticResource ButtonStyleAdmin}"></RadioButton>
 
 
 
