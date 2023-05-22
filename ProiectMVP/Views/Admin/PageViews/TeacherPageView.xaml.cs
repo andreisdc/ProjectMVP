@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ProiectMVP.Views.Admin
+namespace ProiectMVP.Views.Admin.PageViews
 {
 	/// <summary>
-	/// Interaction logic for AdminView.xaml
+	/// Interaction logic for TeacherPageView.xaml
 	/// </summary>
-	public partial class AdminView : Window
+	public partial class TeacherPageView : UserControl
 	{
-		public AdminView()
+		public TeacherPageView()
 		{
 			InitializeComponent();
 		}
