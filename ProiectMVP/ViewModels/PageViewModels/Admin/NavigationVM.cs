@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProiectMVP.Models;
 using System.Windows.Input;
+using ProiectMVP.Views.Admin.PageViews;
 
 
 namespace ProiectMVP.ViewModels.PageViewModels.Admin
@@ -27,12 +28,12 @@ namespace ProiectMVP.ViewModels.PageViewModels.Admin
 		public ICommand ClassCommand { get; set; }
 
 
-		private void Home(object parameter) => CurrentView = new HomeVM();
-		private void Student(object parameter) => CurrentView = new StudentVM();
-		private void Teacher(object parameter) => CurrentView = new TeacherVM();
-		private void Subject(object parameter) => CurrentView = new SubjectVM();
-		private void Settings(object parameter) => CurrentView = new SettingsVM();
-		private void Class(object parameter) => CurrentView = new ClassVM();
+		private void Home(object parameter) => CurrentView = new HomePageView();
+		private void Student(object parameter) => CurrentView = new StudentPageView();
+		private void Teacher(object parameter) => CurrentView = new TeacherPageView();
+		private void Subject(object parameter) => CurrentView = new SubjectPageView();
+		private void Settings(object parameter) => CurrentView = new SettingsPageView();
+		private void Class(object parameter) => CurrentView = new ClassPageView();
 
 
 		public NavigationVM()
@@ -49,7 +50,7 @@ namespace ProiectMVP.ViewModels.PageViewModels.Admin
 
 			ClassCommand = new RelayCommand(Class);
 
-			CurrentView = new HomeVM();
+			CurrentView = new HomePageView();
 		}
 
 	}
