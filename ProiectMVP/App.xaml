@@ -11,14 +11,5 @@
         <DataTemplate x:Key="TeacherTemplate" DataType="{x:Type viewmodels:TeacherViewModel}">
             <teacher:ProfesorView></teacher:ProfesorView>
         </DataTemplate>
-
-		<ResourceDictionary x:Key="PageStyle">
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Assets/Style/PageStyle.xaml"></ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
-
-	</Application.Resources>
-
-
+    </Application.Resources>
 </Application>

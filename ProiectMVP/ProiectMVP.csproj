@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Remove="Assets\Style\PageStyle.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -54,7 +50,6 @@
     <Resource Include="Assets\Img\StudentIcon.png" />
     <Resource Include="Assets\Img\SubjectIcon.jpg" />
     <Resource Include="Assets\Img\TeacherIcon.png" />
-    <Resource Include="Assets\Style\PageStyle.xaml" />
   </ItemGroup>
 
 </Project>

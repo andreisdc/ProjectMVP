@@ -10,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ProiectMVP.ViewModels;
 
-namespace ProiectMVP.Views.Admin
+namespace ProiectMVP.Views.Admin.Delete
 {
 	/// <summary>
-	/// Interaction logic for AdminView.xaml
+	/// Interaction logic for DeleteClasa.xaml
 	/// </summary>
-	public partial class AdminView : Window
+	public partial class DeleteClasa : Page
 	{
-		public AdminView()
+		public DeleteClasa()
 		{
 			InitializeComponent();
-			DataContext = new AdminViewModel();
 		}
 	}
 }

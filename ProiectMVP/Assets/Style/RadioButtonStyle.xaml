@@ -14,7 +14,6 @@
                 </Setter.Value>
             </Setter>
 
-
 			<Setter Property="Background" Value="DarkSeaGreen"></Setter>
 			<Setter Property="BorderThickness" Value="2"></Setter>
 		</Style.Setters>
@@ -23,10 +22,6 @@
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="DarkOliveGreen"></Setter>
             </Trigger>
-
-			<Trigger Property="IsMouseOver" Value="true">
-				<Setter Property="Background" Value="DarkOliveGreen"></Setter>
-			</Trigger>
 		</Style.Triggers>
     </Style>
 
@@ -51,9 +46,6 @@
 			<Trigger Property="IsChecked" Value="True">
 				<Setter Property="Background" Value="Purple"></Setter>
 			</Trigger>
-			<Trigger Property="IsMouseOver" Value="true">
-				<Setter Property="Background" Value="Purple"></Setter>
-			</Trigger>
 		</Style.Triggers>
 	</Style>
 
@@ -76,10 +68,6 @@
 
 		<Style.Triggers>
 			<Trigger Property="IsChecked" Value="True">
-				<Setter Property="Background" Value="DimGray"></Setter>
-			</Trigger>
-
-			<Trigger Property="IsMouseOver" Value="true">
 				<Setter Property="Background" Value="DimGray"></Setter>
 			</Trigger>
 		</Style.Triggers>

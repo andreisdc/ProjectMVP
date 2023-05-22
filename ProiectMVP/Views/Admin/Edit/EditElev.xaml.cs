@@ -10,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ProiectMVP.ViewModels;
 
-namespace ProiectMVP.Views.Admin
+namespace ProiectMVP.Views.Admin.Edit
 {
 	/// <summary>
-	/// Interaction logic for AdminView.xaml
+	/// Interaction logic for EditElev.xaml
 	/// </summary>
-	public partial class AdminView : Window
+	public partial class EditElev : Page
 	{
-		public AdminView()
+		public EditElev()
 		{
 			InitializeComponent();
-			DataContext = new AdminViewModel();
 		}
 	}
 }
