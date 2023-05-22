@@ -11,25 +11,25 @@ namespace ProiectMVP.ViewModels.PageViewModels.Admin
 	class TeacherVM
 	{
 		public readonly PageModel _pageModel;
-		public ICommand EditTeacherModeCommand { get; }
-		public ICommand DeleteTeacherModeCommand { get; }
-		public ICommand InsertTeacherModeCommand { get; }
+		public ICommand EditModeCommand { get; }
+		public ICommand DeleteModeCommand { get; }
+		public ICommand InsertModeCommand { get; }
 		public TeacherVM()
 		{
 			_pageModel = new PageModel();
-			EditTeacherModeCommand = new RelayCommand(EditTeacherMode);
-			DeleteTeacherModeCommand = new RelayCommand(DeleteTeacherMode);
-			InsertTeacherModeCommand = new RelayCommand(InsertTeacherMode);
+			EditModeCommand = new RelayCommand(EditMode);
+			DeleteModeCommand = new RelayCommand(DeleteMode);
+			InsertModeCommand = new RelayCommand(InsertMode);
 		}
-		public void EditTeacherMode(object parameter)
+		public void EditMode(object parameter)
 		{
 
 		}
-		public void DeleteTeacherMode(object parameter)
+		public void DeleteMode(object parameter)
 		{
 
 		}
-		public void InsertTeacherMode(object parameter)
+		public void InsertMode(object parameter)
 		{
 
 		}

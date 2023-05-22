@@ -10,29 +10,29 @@ namespace ProiectMVP.ViewModels.PageViewModels.Admin
 {
 	class StudentVM
 	{
-		public ICommand EditStudentModeCommand { get; }
-		public ICommand DeleteStudentModeCommand { get; }
-		public ICommand InsertStudentModeCommand { get; }
+		public ICommand EditModeCommand { get; }
+		public ICommand DeleteModeCommand { get; }
+		public ICommand InsertModeCommand { get; }
 
 		public readonly PageModel _pageModel;
 
 		public StudentVM()
 		{
-			EditStudentModeCommand = new RelayCommand(EditStudentMode);
-			DeleteStudentModeCommand = new RelayCommand(DeleteStudentMode);
-			InsertStudentModeCommand = new RelayCommand(InsertStudentMode);
+			EditModeCommand = new RelayCommand(EditMode);
+			DeleteModeCommand = new RelayCommand(DeleteMode);
+			InsertModeCommand = new RelayCommand(InsertMode);
 			_pageModel = new PageModel();
 		}
 
-		public void EditStudentMode(object parameter)
+		public void EditMode(object parameter)
 		{
 
 		}
-		public void DeleteStudentMode(object parameter)
+		public void DeleteMode(object parameter)
 		{
 
 		}
-		public void InsertStudentMode(object parameter)
+		public void InsertMode(object parameter)
 		{
 
 		}
