@@ -5,20 +5,12 @@
              xmlns:admin="clr-namespace:ProiectMVP.Views.Admin"
              xmlns:teacher="clr-namespace:ProiectMVP.Views.Profesor">
     <Application.Resources>
-        <DataTemplate x:Key="AdminTemplate" DataType="{x:Type viewmodels:AdminViewModel}">
-            <admin:AdminView></admin:AdminView>
-        </DataTemplate>
-        <DataTemplate x:Key="TeacherTemplate" DataType="{x:Type viewmodels:TeacherViewModel}">
-            <teacher:ProfesorView></teacher:ProfesorView>
-        </DataTemplate>
-
-		<ResourceDictionary x:Key="PageStyle">
+	    <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Assets/Style/PageStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Assets/Style/Page.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
-
-	</Application.Resources>
+    </Application.Resources>
 
 
 </Application>

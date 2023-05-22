@@ -5,13 +5,46 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:ProiectMVP.ViewModels.PageViewModels.Admin"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="400" Background="AliceBlue">
+             d:DesignHeight="650" d:DesignWidth="900" Background="DarkGray"
+             Style="{StaticResource PageStyle}">
 
-    <UserControl.DataContext>
-        <vm:TeacherVM></vm:TeacherVM>
-    </UserControl.DataContext>
+	<UserControl.DataContext>
+		<vm:TeacherVM></vm:TeacherVM>
+	</UserControl.DataContext>
 
 	<Grid>
-		<TextBlock Text="PAGINA TEACHER"></TextBlock>
-    </Grid>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="100"></RowDefinition>
+			<RowDefinition Height="200"></RowDefinition>
+			<RowDefinition Height="350"></RowDefinition>
+		</Grid.RowDefinitions>
+
+		<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Grid.Row="0" Text="PAGINA TEACHER"></TextBlock>
+
+		<DataGrid Grid.Row="1" Height="200" Width="600" VerticalScrollBarVisibility="Visible" Background="AntiqueWhite" Margin="10,0,10,0">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="ID" Width="50"></DataGridTextColumn>
+				<DataGridTextColumn Header="FIRST NAME" Width="150"></DataGridTextColumn>
+				<DataGridTextColumn Header="LAST NAME" Width="150"></DataGridTextColumn>
+				<DataGridTextColumn Header="MASTER" Width="100"></DataGridTextColumn>
+				<DataGridTextColumn Header="CLASS MASTER" Width="150"></DataGridTextColumn>
+			</DataGrid.Columns>
+		</DataGrid>
+
+		<Grid Grid.Row="2">
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+
+			<Button Grid.Column="0" Height="60" Width = "150" Content="Insert"></Button>
+			<Button Grid.Column="1" Height="60" Width = "150" Content="Edit"></Button>
+			<Button Grid.Column="2" Height="60" Width = "150" Content="Delete"></Button>
+		</Grid>
+
+
+	</Grid>
 </UserControl>
