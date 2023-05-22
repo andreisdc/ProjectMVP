@@ -11,9 +11,9 @@ namespace ProiectMVP.ViewModels.PageViewModels.Admin
 	class SubjectVM
 	{
 
-		public ICommand EditSubjectModeCommand { get; }
-		public ICommand DeleteSubjectModeCommand { get; }
-		public ICommand InsertSubjectModeCommand { get; }
+		public ICommand EditModeCommand { get; }
+		public ICommand DeleteModeCommand { get; }
+		public ICommand InsertModeCommand { get; }
 
 
 		public readonly PageModel _pageModel;
@@ -21,20 +21,20 @@ namespace ProiectMVP.ViewModels.PageViewModels.Admin
 		public SubjectVM()
 		{
 			_pageModel = new PageModel();
-			EditSubjectModeCommand = new RelayCommand(EditSubjectMode);
-			DeleteSubjectModeCommand = new RelayCommand(DeleteSubjectMode);
-			InsertSubjectModeCommand = new RelayCommand(InsertSubjectMode);
+			EditModeCommand = new RelayCommand(EditMode);
+			DeleteModeCommand = new RelayCommand(DeleteMode);
+			InsertModeCommand = new RelayCommand(InsertMode);
 		}
 
-		public void EditSubjectMode(object parameter)
+		public void EditMode(object parameter)
 		{
 
 		}
-		public void DeleteSubjectMode(object parameter)
+		public void DeleteMode(object parameter)
 		{
 
 		}
-		public void InsertSubjectMode(object parameter)
+		public void InsertMode(object parameter)
 		{
 
 		}
