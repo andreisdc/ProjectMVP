@@ -31,8 +31,5 @@ namespace ProiectMVP.Views
             DataContext = new MainWindowViewModel();
         }
 
-		private void ButtonLogin_Click(object sender, RoutedEventArgs e) {
-
-		}
 	}
 }

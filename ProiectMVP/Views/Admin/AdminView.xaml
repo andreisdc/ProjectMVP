@@ -6,7 +6,8 @@
         xmlns:vm="clr-namespace:ProiectMVP.ViewModels.PageViewModels.Admin"
         xmlns:utilities="clr-namespace:ProiectMVP.Utilities"
         mc:Ignorable="d"
-        Title="AdminView" Height="650" Width="1100">
+        Title="AdminView" Height="650" Width="1100"
+        ResizeMode="NoResize">
 
 	<Window.Resources>
 		<ResourceDictionary Source="../../Assets/Style/RadioButtonStyle.xaml"></ResourceDictionary>
@@ -16,12 +17,14 @@
 		<vm:NavigationVM></vm:NavigationVM>
 	</Window.DataContext>
 
+
+
 	<Grid>
 		<!-- ADMIN VIEW -->
 
 		<Grid.ColumnDefinitions>
 			<!-- MENU -->
-			<ColumnDefinition Width="216"></ColumnDefinition>
+			<ColumnDefinition Width="200"></ColumnDefinition>
 			<!-- PAGE_SELECT -->
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
@@ -62,7 +65,7 @@
 			<utilities:Btn Grid.Row="4" Content="Subject" Command="{Binding SubjectCommand}" Style="{StaticResource ButtonStyleAdmin}"></utilities:Btn>
 
 			<!-- SETTINGS_PAGE -->
-			<utilities:Btn Grid.Row="6" Content="Settings" Command="{Binding SubjectCommand}" Style="{StaticResource ButtonStyleAdmin}"></utilities:Btn>
+			<utilities:Btn Grid.Row="6" Content="Settings" Command="{Binding SettingsCommand}" Style="{StaticResource ButtonStyleAdmin}"></utilities:Btn>
 
 
 

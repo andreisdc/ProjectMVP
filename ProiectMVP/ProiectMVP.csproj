@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Remove="Assets\Style\PageStyle.xaml" />
+    <Page Remove="Assets\Style\Page.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,7 +54,7 @@
     <Resource Include="Assets\Img\StudentIcon.png" />
     <Resource Include="Assets\Img\SubjectIcon.jpg" />
     <Resource Include="Assets\Img\TeacherIcon.png" />
-    <Resource Include="Assets\Style\PageStyle.xaml" />
+    <Resource Include="Assets\Style\Page.xaml" />
   </ItemGroup>
 
 </Project>
