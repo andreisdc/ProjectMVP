@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProiectMVP.Views.Profesor"
+        xmlns:vm="clr-namespace:ProiectMVP.ViewModels.PageViewModels.Teacher"
         mc:Ignorable="d"
         Background="AliceBlue"
         WindowStartupLocation="CenterScreen"
@@ -13,7 +14,11 @@
         <ResourceDictionary Source="../../Assets/Style/RadioButtonStyle.xaml"></ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
+	<Window.DataContext>
+		<vm:NavigationVM></vm:NavigationVM>
+	</Window.DataContext>
+
+	<Grid>
         <!-- ADMIN VIEW -->
         <Grid.ColumnDefinitions>
             <!-- MENU -->
@@ -48,25 +53,28 @@
             <!-- LOGO -->
             <Image Grid.Row="0" Source="../../Assets/Img/LogoNew.png"></Image>
             <!-- TEACHERS_PAGE -->
-            <RadioButton Grid.Row="1" Content="Teacher" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
+            <RadioButton Command="{Binding AbsenceCommand}" Grid.Row="1" Content="Absence" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
             <!-- STUDENT_PAGE -->
-            <RadioButton Grid.Row="2" Content="Student" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
+            <RadioButton Command="{Binding AverageCommand}"  Grid.Row="2" Content="Average" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
 
             <!-- CLASS_PAGE -->
-            <RadioButton Grid.Row="3" Content="Class" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
+            <RadioButton Command="{Binding GradeCommand}" Grid.Row="3" Content="Grade" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
 
             <!-- SUBJECT_PAGE -->
-            <RadioButton Grid.Row="4" Content="Subject" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
+            <RadioButton Command="{Binding SubjectCommand}" Grid.Row="4" Content="Subject" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
 
             <!-- SETTINGS_PAGE -->
-            <RadioButton Grid.Row="6" Content="Settings" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
+            <RadioButton Command="{Binding SettingsCommand}" Grid.Row="6" Content="Settings" Style="{StaticResource ButtonStyleTeacher}"></RadioButton>
 
 
         </Grid>
 
 
+        <Grid Column="1">
+	        <ContentControl x:Name="Pages" Content="{Binding CurrentView}">
+	        </ContentControl>
+        </Grid>
 
 
-
-    </Grid>
+	</Grid>
 </Window>
