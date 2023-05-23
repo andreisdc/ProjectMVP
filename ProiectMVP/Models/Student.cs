@@ -7,8 +7,9 @@ public class Student
     public string LastName { get; set; }
     public string FirstName { get; set; }
     public int ClassId { get; set; }
-    public Class Class { get; set; }
-    public List<StudentSubject> StudentSubjects { get; set; }
+    public Group Group { get; set; }
+    public List<StudentCourse> StudentSubjects { get; set; }
     public int UserId { get; set; }
     public User User { get; set; }
+
 }

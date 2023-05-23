@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProiectMVP.Data;
 
@@ -11,9 +12,11 @@ using ProiectMVP.Data;
 namespace ProiectMVP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230523082601_Student-Professor-UserLogic")]
+    partial class StudentProfessorUserLogic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +48,7 @@ namespace ProiectMVP.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Courses", "highSchool");
+                    b.ToTable("Subjects", "highSchool");
                 });
 
             modelBuilder.Entity("Group", b =>
@@ -59,7 +62,7 @@ namespace ProiectMVP.Migrations
                     b.Property<int>("ClassMasterId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("GroupName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -70,7 +73,7 @@ namespace ProiectMVP.Migrations
 
                     b.HasIndex("ClassMasterId");
 
-                    b.ToTable("Groups", "highSchool");
+                    b.ToTable("Classes", "highSchool");
                 });
 
             modelBuilder.Entity("ProiectMVP.Models.Absence", b =>
@@ -112,9 +115,6 @@ namespace ProiectMVP.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsCanceled")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Semester")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -130,6 +130,29 @@ namespace ProiectMVP.Migrations
                     b.HasIndex("StudentSubjectId");
 
                     b.ToTable("Grades", "highSchool");
+                });
+
+            modelBuilder.Entity("ProiectMVP.Models.ProfessorSubject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubjectId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ProfessorSubjects", "highSchool");
                 });
 
             modelBuilder.Entity("ProiectMVP.Models.StudyMaterial", b =>
@@ -162,29 +185,6 @@ namespace ProiectMVP.Migrations
                     b.ToTable("StudyMaterials", "highSchool");
                 });
 
-            modelBuilder.Entity("ProiectMVP.Models.TeacherCourse", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubjectId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("TeacherCourses", "highSchool");
-                });
-
             modelBuilder.Entity("ProiectMVP.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -193,13 +193,20 @@ namespace ProiectMVP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -208,6 +215,10 @@ namespace ProiectMVP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", "highSchool");
+
+                    b.HasDiscriminator<int>("Role").HasValue(0);
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Semester", b =>
@@ -235,39 +246,7 @@ namespace ProiectMVP.Migrations
                     b.ToTable("Semesters", "highSchool");
                 });
 
-            modelBuilder.Entity("Student", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClassId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClassId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Students", "highSchool");
-                });
-
-            modelBuilder.Entity("StudentCourse", b =>
+            modelBuilder.Entity("StudentSubject", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -292,34 +271,26 @@ namespace ProiectMVP.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StudentCourses", "highSchool");
+                    b.ToTable("StudentSubjects", "highSchool");
                 });
 
-            modelBuilder.Entity("Teacher", b =>
+            modelBuilder.Entity("Professor", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.HasBaseType("ProiectMVP.Models.User");
+
+                    b.HasDiscriminator().HasValue(1);
+                });
+
+            modelBuilder.Entity("Student", b =>
+                {
+                    b.HasBaseType("ProiectMVP.Models.User");
+
+                    b.Property<int>("ClassId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.HasIndex("ClassId");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Teachers", "highSchool");
+                    b.HasDiscriminator().HasValue(2);
                 });
 
             modelBuilder.Entity("Course", b =>
@@ -331,7 +302,7 @@ namespace ProiectMVP.Migrations
 
             modelBuilder.Entity("Group", b =>
                 {
-                    b.HasOne("Teacher", "ClassMaster")
+                    b.HasOne("Professor", "ClassMaster")
                         .WithMany()
                         .HasForeignKey("ClassMasterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -342,24 +313,43 @@ namespace ProiectMVP.Migrations
 
             modelBuilder.Entity("ProiectMVP.Models.Absence", b =>
                 {
-                    b.HasOne("StudentCourse", "StudentCourse")
+                    b.HasOne("StudentSubject", "StudentSubject")
                         .WithMany("Absences")
                         .HasForeignKey("StudentSubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("StudentCourse");
+                    b.Navigation("StudentSubject");
                 });
 
             modelBuilder.Entity("ProiectMVP.Models.Grade", b =>
                 {
-                    b.HasOne("StudentCourse", "StudentCourse")
+                    b.HasOne("StudentSubject", "StudentSubject")
                         .WithMany("Grades")
                         .HasForeignKey("StudentSubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("StudentCourse");
+                    b.Navigation("StudentSubject");
+                });
+
+            modelBuilder.Entity("ProiectMVP.Models.ProfessorSubject", b =>
+                {
+                    b.HasOne("Course", "Course")
+                        .WithMany("ProfessorSubjects")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Professor", "Professor")
+                        .WithMany("ProfessorSubjects")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Professor");
                 });
 
             modelBuilder.Entity("ProiectMVP.Models.StudyMaterial", b =>
@@ -373,25 +363,6 @@ namespace ProiectMVP.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("ProiectMVP.Models.TeacherCourse", b =>
-                {
-                    b.HasOne("Course", "Course")
-                        .WithMany("ProfessorSubjects")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Teacher", "Teacher")
-                        .WithMany("ProfessorSubjects")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Teacher");
-                });
-
             modelBuilder.Entity("Semester", b =>
                 {
                     b.HasOne("Course", "Course")
@@ -403,26 +374,7 @@ namespace ProiectMVP.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("Student", b =>
-                {
-                    b.HasOne("Group", "Group")
-                        .WithMany("Students")
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ProiectMVP.Models.User", "User")
-                        .WithOne("Student")
-                        .HasForeignKey("Student", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("StudentCourse", b =>
+            modelBuilder.Entity("StudentSubject", b =>
                 {
                     b.HasOne("Semester", "Semester")
                         .WithMany("StudentSubjects")
@@ -449,15 +401,15 @@ namespace ProiectMVP.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("Teacher", b =>
+            modelBuilder.Entity("Student", b =>
                 {
-                    b.HasOne("ProiectMVP.Models.User", "User")
-                        .WithOne("Teacher")
-                        .HasForeignKey("Teacher", "UserId")
+                    b.HasOne("Group", "Group")
+                        .WithMany("Students")
+                        .HasForeignKey("ClassId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Course", b =>
@@ -476,35 +428,26 @@ namespace ProiectMVP.Migrations
                     b.Navigation("Subjects");
                 });
 
-            modelBuilder.Entity("ProiectMVP.Models.User", b =>
-                {
-                    b.Navigation("Student")
-                        .IsRequired();
-
-                    b.Navigation("Teacher")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Semester", b =>
                 {
                     b.Navigation("StudentSubjects");
                 });
 
-            modelBuilder.Entity("Student", b =>
-                {
-                    b.Navigation("StudentSubjects");
-                });
-
-            modelBuilder.Entity("StudentCourse", b =>
+            modelBuilder.Entity("StudentSubject", b =>
                 {
                     b.Navigation("Absences");
 
                     b.Navigation("Grades");
                 });
 
-            modelBuilder.Entity("Teacher", b =>
+            modelBuilder.Entity("Professor", b =>
                 {
                     b.Navigation("ProfessorSubjects");
+                });
+
+            modelBuilder.Entity("Student", b =>
+                {
+                    b.Navigation("StudentSubjects");
                 });
 #pragma warning restore 612, 618
         }

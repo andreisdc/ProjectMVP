@@ -10,9 +10,10 @@ namespace ProiectMVP.Models
     {
         public int Id { get; set; }
         public int StudentSubjectId { get; set; }
-        public StudentSubject StudentSubject { get; set; }
+        public StudentCourse StudentCourse { get; set; }
         public int Value { get; set; }
         public DateTime Date { get; set; }
         public string Semester { get; set; }
+        public bool IsCanceled { get; set; }
     }
 }

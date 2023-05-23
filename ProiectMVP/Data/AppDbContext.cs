@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProiectMVP.Models;
 
 namespace ProiectMVP.Data
@@ -11,14 +13,14 @@ namespace ProiectMVP.Data
         }
         
         public DbSet<Student> Students { get; set; }
-        public DbSet<Class> Classes { get; set; }
-        public DbSet<Professor> Professors { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
-        public DbSet<StudentSubject> StudentSubjects { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<StudentCourse> StudentCourses { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Absence> Absences { get; set; }
         public DbSet<StudyMaterial> StudyMaterials { get; set; }
-        public DbSet<ProfessorSubject> ProfessorSubjects { get; set; }
+        public DbSet<TeacherCourse> TeacherCourses { get; set; }
         public DbSet<Semester> Semesters { get; set; }
         public DbSet<User> Users { get; set; }
 
@@ -26,54 +28,87 @@ namespace ProiectMVP.Data
         {
             modelBuilder.HasDefaultSchema("highSchool");
 
+            //Student
+
             modelBuilder.Entity<Student>()
-                .HasOne(e => e.Class)
+                .HasOne(e => e.Group)
                 .WithMany(c => c.Students)
                 .HasForeignKey(e => e.ClassId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Student>()
                 .HasMany(e => e.StudentSubjects)
                 .WithOne(em => em.Student)
                 .HasForeignKey(em => em.UserId);
 
-            modelBuilder.Entity<StudentSubject>()
+            modelBuilder.Entity<Student>()
+                .HasOne(e => e.User)
+                .WithOne(u => u.Student)
+                .HasForeignKey<Student>(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            //StudentCourse
+
+            modelBuilder.Entity<StudentCourse>()
                 .HasKey(em => new { em.Id });
 
-            modelBuilder.Entity<StudentSubject>()
+            modelBuilder.Entity<StudentCourse>()
                 .HasOne(em => em.Student)
                 .WithMany(e => e.StudentSubjects)
                 .HasForeignKey(em => em.UserId);
 
-            modelBuilder.Entity<StudentSubject>()
-                .HasOne(em => em.Subject)
+            modelBuilder.Entity<StudentCourse>()
+                .HasOne(em => em.Course)
                 .WithMany(m => m.StudentSubjects)
                 .HasForeignKey(em => em.SubjectId);
 
-            modelBuilder.Entity<Subject>()
+            //Course
+
+            modelBuilder.Entity<Course>()
                 .HasMany(s => s.StudyMaterials)
-                .WithOne(sm => sm.Subject)
+                .WithOne(sm => sm.Course)
                 .HasForeignKey(sm => sm.SubjectId);
 
-            modelBuilder.Entity<Subject>()
+            modelBuilder.Entity<Course>()
                 .HasMany(s => s.ProfessorSubjects)
-                .WithOne(ps => ps.Subject)
+                .WithOne(ps => ps.Course)
                 .HasForeignKey(ps => ps.SubjectId);
 
+            modelBuilder.Entity<Course>()
+                .HasMany(s => s.StudentSubjects)
+                .WithOne(ss => ss.Course)
+                .HasForeignKey(ss => ss.SubjectId);
+
+            //Grade
+
             modelBuilder.Entity<Grade>()
-                .HasOne(g => g.StudentSubject)
+                .HasOne(g => g.StudentCourse)
                 .WithMany(ss => ss.Grades)
                 .HasForeignKey(g => g.StudentSubjectId);
 
+            //Absence
+
             modelBuilder.Entity<Absence>()
-                .HasOne(a => a.StudentSubject)
+                .HasOne(a => a.StudentCourse)
                 .WithMany(ss => ss.Absences)
                 .HasForeignKey(a => a.StudentSubjectId);
 
-            modelBuilder.Entity<Professor>()
+            //Teacher
+
+            modelBuilder.Entity<Teacher>()
                 .HasMany(e => e.ProfessorSubjects)
-                .WithOne(em => em.Professor)
+                .WithOne(em => em.Teacher)
                 .HasForeignKey(em => em.UserId);
+
+            modelBuilder.Entity<Teacher>()
+                .HasOne(e => e.User)
+                .WithOne(u => u.Teacher)
+                .HasForeignKey<Teacher>(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            //Semester
 
             modelBuilder.Entity<Semester>()
                 .HasMany(s => s.StudentSubjects)
@@ -81,21 +116,10 @@ namespace ProiectMVP.Data
                 .HasForeignKey(ss => ss.SemesterId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //User
             modelBuilder.Entity<User>()
-                .HasDiscriminator<UserRole>("Role");
-
-            modelBuilder.Entity<Student>()
-                .HasOne(e => e.User)
-                .WithOne(c => c.Id)
-                .HasForeignKey<User>(e => e.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<Professor>()
-                .HasOne(e => e.ProfessorUser)
-                .WithOne(c => c.Professor)
-                .HasForeignKey<User>(e => e.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
+                .Property(d => d.Role)
+                .HasConversion(new EnumToStringConverter<UserRole>());
         }
     }
 }
