@@ -9,11 +9,11 @@ namespace ProiectMVP.ViewModels.PageViewModels.Admin
 {
 	class SettingsVM
 	{
-		public readonly PageModel _pageModel;
+		
 
 		public SettingsVM()
 		{
-			_pageModel = new PageModel();
+			
 		}
 	}
 }

@@ -15,14 +15,14 @@ namespace ProiectMVP.ViewModels.PageViewModels.Admin
 		public ICommand DeleteModeCommand { get; }
 		public ICommand InsertModeCommand { get; }
 
-		private readonly PageModel _pageModel;
+		
 
 		public ClassVM()
 		{
 			EditModeCommand = new RelayCommand(EditMode);
 			DeleteModeCommand = new RelayCommand(DeleteMode);
 			InsertModeCommand = new RelayCommand(InsertMode);
-			_pageModel = new PageModel();
+			
 		}
 
 		public void EditMode(object parameter)

@@ -9,11 +9,10 @@ namespace ProiectMVP.ViewModels.PageViewModels.Teacher
 { 
 	class HomeVM : BaseViewModel
 	{
-		public readonly PageModel _pageModel;
-
+	
 		public HomeVM()
 		{
-			_pageModel = new PageModel();
+			
 		}
 	}
 }

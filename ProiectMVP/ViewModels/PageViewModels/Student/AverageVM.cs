@@ -9,11 +9,11 @@ namespace ProiectMVP.ViewModels.PageViewModels.Student
 {
 	internal class AverageVM
 	{
-		public readonly PageModel _pageModel;
+		
 
 		public AverageVM()
 		{
-			_pageModel = new PageModel();
+			
 		}
 	}
 }

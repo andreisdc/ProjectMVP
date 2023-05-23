@@ -11,11 +11,11 @@ namespace ProiectMVP.ViewModels.PageViewModels.Student
 	class SubjectVM
 	{
 
-		public readonly PageModel _pageModel;
+		
 
 		public SubjectVM()
 		{
-			_pageModel = new PageModel();
+		
 		}
 	}
 }
