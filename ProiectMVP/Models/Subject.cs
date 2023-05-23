@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using ProiectMVP.Models;
 
-namespace ProiectMVP.Models
+public class Subject
 {
-    public class Subject
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<StudentSubject> StudentSubjects { get; set; }
-        public List<Professor> Professors { get; set; }
-    }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public bool HasThesis { get; set; }
+    public List<StudentSubject> StudentSubjects { get; set; }
+    public List<Professor> Professors { get; set; }
+    public List<StudyMaterial> StudyMaterials { get; set; }
 }

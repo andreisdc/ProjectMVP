@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace ProiectMVP.Models
+public class Semester
 {
-    public class Semester
-    {
-        public int Id { get; set; }
-        public string Value { get; set; }
-        public int SubjectId { get; set; }
-        public int Grade { get; set; }
-        public Subject Subject { get; internal set; }
-    }
+    public int Id { get; set; }
+    public string Value { get; set; }
+    public int SubjectId { get; set; }
+    public Subject Subject { get; internal set; }
+    public List<StudentSubject> StudentSubjects { get; set; }
 }

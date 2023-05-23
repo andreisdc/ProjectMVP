@@ -5,7 +5,8 @@ namespace ProiectMVP.Data
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
         {
         }
 
@@ -14,6 +15,9 @@ namespace ProiectMVP.Data
         public DbSet<Professor> Professors { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<StudentSubject> StudentSubjects { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+        public DbSet<Absence> Absences { get; set; }
+        public DbSet<StudyMaterial> StudyMaterials { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,7 +30,7 @@ namespace ProiectMVP.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<StudentSubject>()
-                .HasKey(em => new { ElevId = em.StudentId, MaterieId = em.SubjectId });
+                .HasKey(em => new { em.Id });
 
             modelBuilder.Entity<StudentSubject>()
                 .HasOne(em => em.Student)
@@ -42,14 +46,20 @@ namespace ProiectMVP.Data
                 .HasMany(p => p.Subjects)
                 .WithMany(m => m.Professors);
 
-            modelBuilder.Entity<Professor>()
-                .HasOne(p => p.ClassMaster)
-                .WithOne(c => c.ClassMaster)
-                .HasForeignKey<Professor>(p => p.ClassMasterId)
-                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Subject>()
+                .HasMany(s => s.StudyMaterials)
+                .WithOne(sm => sm.Subject)
+                .HasForeignKey(sm => sm.SubjectId);
 
+            modelBuilder.Entity<Grade>()
+                .HasOne(g => g.StudentSubject)
+                .WithMany(ss => ss.Grades)
+                .HasForeignKey(g => g.StudentSubjectId);
 
-
+            modelBuilder.Entity<Absence>()
+                .HasOne(a => a.StudentSubject)
+                .WithMany(ss => ss.Absences)
+                .HasForeignKey(a => a.StudentSubjectId);
         }
     }
 }
