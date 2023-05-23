@@ -14,7 +14,7 @@ namespace ProiectMVP
     /// </summary>
     public partial class App : Application
     {
-        private readonly IServiceProvider serviceProvider;
+        private IServiceProvider serviceProvider;
 
         public App()
         {
@@ -27,7 +27,7 @@ namespace ProiectMVP
         {
             services.AddSingleton(CreateYourDbContextOptions());
             services.AddSingleton<AppDbContext>();
-            services.AddSingleton<MainWindowView>();
+            services.AddSingleton<AuthenticationView>();
         }
 
         private DbContextOptions<AppDbContext> CreateYourDbContextOptions()
@@ -53,7 +53,7 @@ namespace ProiectMVP
                 dbContext.Database.Migrate();
             }
 
-            var mainWindow = serviceProvider.GetRequiredService<MainWindowView>();
+            var mainWindow = serviceProvider.GetRequiredService<AuthenticationView>();
             mainWindow.Show();
             base.OnStartup(e);
         }

@@ -9,7 +9,7 @@ namespace ProiectMVP.Models
     public class ProfessorSubject
     {
         public int Id { get; set; }
-        public int ProfessorId { get; set; }
+        public int UserId { get; set; }
         public Professor Professor { get; set; }
         public int SubjectId { get; set; }
         public Subject Subject { get; set; }

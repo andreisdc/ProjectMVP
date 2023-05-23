@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProiectMVP.Models
 {
-	internal class PageModel
-	{
-	}
+    internal class PageModel
+    {
+    }
 }

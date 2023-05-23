@@ -3,80 +3,182 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:ProiectMVP.ViewModels.PageViewModels.Admin"
-        xmlns:utilities="clr-namespace:ProiectMVP.Utilities"
+        xmlns:local="clr-namespace:ProiectMVP.Views.Admin"
+        xmlns:viewModels="clr-namespace:ProiectMVP.ViewModels"
         mc:Ignorable="d"
-        Title="AdminView" Height="650" Width="1100"
-        ResizeMode="NoResize">
+        Title="Admin control panel - Virtual School" Width="1100" Height="660" Background="AliceBlue" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewModels:AdminViewModel/>
+    </Window.DataContext>
 
-	<Window.Resources>
-		<ResourceDictionary Source="../../Assets/Style/RadioButtonStyle.xaml"></ResourceDictionary>
-	</Window.Resources>
+    <Grid Width="1080" Height="620">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-	<Window.DataContext>
-		<vm:NavigationVM></vm:NavigationVM>
-	</Window.DataContext>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
+            <Label Grid.Column="0" Content="Welcome, " HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <Button Grid.Column="1" Content="Log out" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="75" Command="{Binding LogOutCommand}"/>
+        </Grid>
 
+        <TabControl Grid.Row="1" Margin="10">
+            <TabItem Header="Students">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-	<Grid>
-		<!-- ADMIN VIEW -->
+                    <Grid Grid.Row="0" Margin="0, 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
 
-		<Grid.ColumnDefinitions>
-			<!-- MENU -->
-			<ColumnDefinition Width="200"></ColumnDefinition>
-			<!-- PAGE_SELECT -->
-			<ColumnDefinition/>
-		</Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Selected student: none" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
 
+                        <Button Grid.Column="2" Content="New" Command="{Binding AddStudentCommand}"/>
 
-		<!-- MENU -->
-		<Grid Grid.Column="0" Background="Gray">
-			<!-- MENU_DEFINITION -->
-			<Grid.RowDefinitions>
-				<!-- LOGO -->
-				<RowDefinition Height="150"></RowDefinition>
-				<!-- TEACHER_PAGE -->
-				<RowDefinition Height="70"></RowDefinition>
-				<!-- STUDENT_PAGE -->
-				<RowDefinition Height="70"></RowDefinition>
-				<!-- CLASS_PAGE -->
-				<RowDefinition Height="70"></RowDefinition>
-				<!-- SUBJECT_PAGE -->
-				<RowDefinition Height="70"></RowDefinition>
-				<!-- SETTINGS_PAGE -->
-				<RowDefinition Height="*"></RowDefinition>
-				<!-- SETTINGS_PAGE -->
-				<RowDefinition Height="70"></RowDefinition>
-			</Grid.RowDefinitions>
+                        <Button Grid.Column="4" Content="Edit" Command="{Binding EditStudentCommand}" IsEnabled="False"/>
 
+                        <Button Grid.Column="6" Content="Delete" Command="{Binding DeleteStudentCommand}" IsEnabled="False"/>
+                    </Grid>
 
-			<!-- LOGO -->
-			<Image Grid.Row="0" Source="../../Assets/Img/LogoNew.png"></Image>
-			<!-- TEACHERS_PAGE -->
-			<utilities:Btn Grid.Row="1" Content="Teacher" Command="{Binding TeacherCommand}" Style="{StaticResource ButtonStyleAdmin}"></utilities:Btn>
-			<!-- STUDENT_PAGE -->
-			<utilities:Btn Grid.Row="2" Content="Student" Command="{Binding StudentCommand}" Style="{StaticResource ButtonStyleAdmin}"></utilities:Btn>
+                    <DataGrid Grid.Row="1" Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
+                            <DataGridTextColumn Header="Prenume" Binding="{Binding Prenume}"/>
+                            <DataGridTextColumn Header="An" Binding="{Binding An}"/>
+                            <DataGridTextColumn Header="Grupa" Binding="{Binding Grupa}"/>
+                            <DataGridTextColumn Header="Specializare" Binding="{Binding Specializare}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Teachers">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-			<!-- CLASS_PAGE -->
-			<utilities:Btn Grid.Row="3" Content="Class" Command ="{Binding ClassCommand}"  Style="{StaticResource ButtonStyleAdmin}"></utilities:Btn>
+                    <Grid Grid.Row="0" Margin="0, 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
 
-			<!-- SUBJECT_PAGE -->
-			<utilities:Btn Grid.Row="4" Content="Subject" Command="{Binding SubjectCommand}" Style="{StaticResource ButtonStyleAdmin}"></utilities:Btn>
+                        <Label Grid.Column="0" Content="Selected teacher: none" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
 
-			<!-- SETTINGS_PAGE -->
-			<utilities:Btn Grid.Row="6" Content="Settings" Command="{Binding SettingsCommand}" Style="{StaticResource ButtonStyleAdmin}"></utilities:Btn>
+                        <Button Grid.Column="2" Content="New" Command="{Binding AddTeacherCommand}"/>
 
+                        <Button Grid.Column="4" Content="Edit" Command="{Binding EditTeacherCommand}" IsEnabled="False"/>
 
+                        <Button Grid.Column="6" Content="Delete" Command="{Binding DeleteTeacherCommand}" IsEnabled="False"/>
+                    </Grid>
 
-		</Grid>
+                    <TabControl Grid.Row="1" Margin="5">
+                        <TabItem Header="List">
+                            <DataGrid Margin="10">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
+                                    <DataGridTextColumn Header="Prenume" Binding="{Binding Prenume}"/>
+                                    <DataGridTextColumn Header="Materie" Binding="{Binding Materie}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Classes assigned to">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
 
-		<Grid Column="1">
-			<ContentControl x:Name="Pages" Content="{Binding CurrentView}">
-			</ContentControl>
-		</Grid>
+                                <Grid Grid.Row="0" Margin="0, 5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="70"/>
+                                    </Grid.ColumnDefinitions>
 
+                                    <Label Grid.Column="0" Content="Selected class: none" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
 
+                                    <Button Grid.Column="2" Content="New" Command="{Binding AddClassCommand}"/>
 
-	</Grid>
+                                    <Button Grid.Column="4" Content="Edit" Command="{Binding EditClassCommand}" IsEnabled="False"/>
+
+                                    <Button Grid.Column="6" Content="Delete" Command="{Binding DeleteClassCommand}" IsEnabled="False"/>
+                                </Grid>
+
+                                <DataGrid Grid.Row="1" Margin="5">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
+                                        <DataGridTextColumn Header="Prenume" Binding="{Binding Prenume}"/>
+                                        <DataGridTextColumn Header="Materie" Binding="{Binding Materie}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Courses">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="31*"/>
+                            <ColumnDefinition Width="381*"/>
+                            <ColumnDefinition Width="412*" />
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Content="Selected class: none" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Grid.ColumnSpan="2"/>
+
+                        <Button Grid.Column="3" Content="New" Command="{Binding AddCourseCommand}"/>
+
+                        <Button Grid.Column="5" Content="Edit" Command="{Binding EditCourseCommand}" IsEnabled="False"/>
+
+                        <Button Grid.Column="7" Content="Delete" Command="{Binding DeleteCourseCommand}" IsEnabled="False"/>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1" Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
+                            <DataGridTextColumn Header="Prenume" Binding="{Binding Prenume}"/>
+                            <DataGridTextColumn Header="Materie" Binding="{Binding Materie}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>

@@ -9,7 +9,7 @@ namespace ProiectMVP.Data
             : base(options)
         {
         }
-
+        
         public DbSet<Student> Students { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<Professor> Professors { get; set; }
@@ -20,9 +20,7 @@ namespace ProiectMVP.Data
         public DbSet<StudyMaterial> StudyMaterials { get; set; }
         public DbSet<ProfessorSubject> ProfessorSubjects { get; set; }
         public DbSet<Semester> Semesters { get; set; }
-        public DbSet<Users> Users { get; set; }
-        public DbSet<StudentUser> StudentUsers { get; set; }
-        public DbSet<ProfessorUser> ProfessorUsers { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,7 +35,7 @@ namespace ProiectMVP.Data
             modelBuilder.Entity<Student>()
                 .HasMany(e => e.StudentSubjects)
                 .WithOne(em => em.Student)
-                .HasForeignKey(em => em.StudentId);
+                .HasForeignKey(em => em.UserId);
 
             modelBuilder.Entity<StudentSubject>()
                 .HasKey(em => new { em.Id });
@@ -45,7 +43,7 @@ namespace ProiectMVP.Data
             modelBuilder.Entity<StudentSubject>()
                 .HasOne(em => em.Student)
                 .WithMany(e => e.StudentSubjects)
-                .HasForeignKey(em => em.StudentId);
+                .HasForeignKey(em => em.UserId);
 
             modelBuilder.Entity<StudentSubject>()
                 .HasOne(em => em.Subject)
@@ -75,7 +73,7 @@ namespace ProiectMVP.Data
             modelBuilder.Entity<Professor>()
                 .HasMany(e => e.ProfessorSubjects)
                 .WithOne(em => em.Professor)
-                .HasForeignKey(em => em.ProfessorId);
+                .HasForeignKey(em => em.UserId);
 
             modelBuilder.Entity<Semester>()
                 .HasMany(s => s.StudentSubjects)
@@ -83,21 +81,19 @@ namespace ProiectMVP.Data
                 .HasForeignKey(ss => ss.SemesterId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Users>()
-                .HasDiscriminator<string>("Role")
-                .HasValue<StudentUser>("Student")
-                .HasValue<ProfessorUser>("Professor");
+            modelBuilder.Entity<User>()
+                .HasDiscriminator<UserRole>("Role");
 
             modelBuilder.Entity<Student>()
-                .HasOne(e => e.StudentUser)
-                .WithOne(c => c.Student)
-                .HasForeignKey<StudentUser>(e => e.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(e => e.User)
+                .WithOne(c => c.Id)
+                .HasForeignKey<User>(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Professor>()
                 .HasOne(e => e.ProfessorUser)
                 .WithOne(c => c.Professor)
-                .HasForeignKey<ProfessorUser>(e => e.ProfessorId)
+                .HasForeignKey<User>(e => e.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
         }

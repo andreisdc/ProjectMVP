@@ -55,6 +55,14 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="ViewModels\Admin\" />
+    <Folder Include="ViewModels\Teacher\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Admin\AddTeacherView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

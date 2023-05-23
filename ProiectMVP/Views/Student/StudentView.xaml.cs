@@ -11,22 +11,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProiectMVP.ViewModels;
 
-namespace ProiectMVP.Views.Admin
+namespace ProiectMVP.Views.Student
 {
-	/// <summary>
-	/// Interaction logic for AdminView.xaml
-	/// </summary>
-	public partial class AdminView : Window
+    /// <summary>
+    /// Interaction logic for StudentView.xaml
+    /// </summary>
+    public partial class StudentView : Window
 	{
-		public static AdminView instance;
+		public static StudentView instance;
 
-		public AdminView()
+		public StudentView()
 		{
 			instance = this;
 			InitializeComponent();
-			DataContext = new AdminViewModel();
 		}
 	}
 }

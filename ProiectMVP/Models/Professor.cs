@@ -7,5 +7,6 @@ public class Professor
     public string LastName { get; set; }
     public string FirstName { get; set; }
     public List<ProfessorSubject> ProfessorSubjects { get; set; }
-    public ProfessorUser ProfessorUser { get; set; }
+    public int UserId { get; set; }
+    public User User { get; set; }
 }
