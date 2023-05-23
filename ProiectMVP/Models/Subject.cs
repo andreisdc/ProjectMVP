@@ -7,6 +7,6 @@ public class Subject
     public string Name { get; set; }
     public bool HasThesis { get; set; }
     public List<StudentSubject> StudentSubjects { get; set; }
-    public List<Professor> Professors { get; set; }
+    public List<ProfessorSubject> ProfessorSubjects { get; set; }
     public List<StudyMaterial> StudyMaterials { get; set; }
 }

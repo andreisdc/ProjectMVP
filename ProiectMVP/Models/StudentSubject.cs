@@ -10,4 +10,6 @@ public class StudentSubject
     public Subject Subject { get; set; }
     public List<Grade> Grades { get; set; }
     public List<Absence> Absences { get; set; }
+    public int SemesterId { get; set; }
+    public Semester Semester { get; set; }
 }

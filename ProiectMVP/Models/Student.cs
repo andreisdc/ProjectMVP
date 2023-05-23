@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ProiectMVP.Models;
 
 public class Student
 {
@@ -8,4 +9,5 @@ public class Student
     public int ClassId { get; set; }
     public Class Class { get; set; }
     public List<StudentSubject> StudentSubjects { get; set; }
+    public StudentUser StudentUser { get; set; }
 }
