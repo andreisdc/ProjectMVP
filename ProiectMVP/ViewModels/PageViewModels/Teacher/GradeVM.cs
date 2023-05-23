@@ -10,7 +10,7 @@ namespace ProiectMVP.ViewModels.PageViewModels.Teacher
 {
 	internal class GradeVM
 	{
-		public readonly PageModel _pageModel;
+	
 
 		public ICommand InsertModeCommand { get; set; }
 		public ICommand DeleteModeCommand { get; set; }
@@ -21,7 +21,7 @@ namespace ProiectMVP.ViewModels.PageViewModels.Teacher
 			InsertModeCommand = new RelayCommand(InsertMode);
 			DeleteModeCommand = new RelayCommand(DeleteMode);
 			EditModeCommand = new RelayCommand(EditMode);
-			_pageModel = new PageModel();
+			
 		}
 
 		private void InsertMode(object parameter)
