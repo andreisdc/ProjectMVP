@@ -55,12 +55,28 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="ViewModels\Admin\" />
-    <Folder Include="ViewModels\Teacher\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\Admin\AddTeacherView.xaml.cs">
+    <Compile Update="Views\AdminViews\AddGroupView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AdminViews\EditGroupView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AdminViews\EditCourseView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AdminViews\AddCourseView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AdminViews\EditStudentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AdminViews\EditTeacherView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AdminViews\AddTeacherView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

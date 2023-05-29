@@ -11,106 +11,105 @@ using ProiectMVP.Data;
 using ProiectMVP.Models;
 using ProiectMVP.Service;
 using ProiectMVP.Views;
-using ProiectMVP.Views.Admin;
-using ProiectMVP.Views.Student;
-using ProiectMVP.Views.Teacher;
+using ProiectMVP.Views.AdminViews;
+using ProiectMVP.Views.StudentViews;
+using ProiectMVP.Views.TeacherViews;
 
-namespace ProiectMVP.ViewModels
+namespace ProiectMVP.ViewModels;
+
+public class AuthenticationViewModel : BaseViewModel
 {
-    public class AuthenticationViewModel : BaseViewModel
+    protected AppDbContext _dbContext;
+
+    private string _username;
+    private string _password;
+    private string _errorMessage;
+    private bool _isErrorVisible;
+
+    public string Username
     {
-        protected AppDbContext _dbContext;
-
-        private string _username;
-        private string _password;
-        private string _errorMessage;
-        private bool _isErrorVisible;
-
-        public string Username
+        get => _username;
+        set
         {
-            get => _username;
-            set
+            _username = value;
+            OnPropertyChanged(nameof(Username));
+            OnPropertyChanged(nameof(IsLoginEnabled));
+        }
+    }
+
+    public string Password
+    {
+        get => _password;
+        set
+        {
+            _password = value;
+            OnPropertyChanged(nameof(Password));
+            OnPropertyChanged(nameof(IsLoginEnabled));
+        }
+    }
+
+    public string ErrorMessage
+    {
+        get => _errorMessage;
+        set
+        {
+            _errorMessage = value;
+            OnPropertyChanged(nameof(ErrorMessage));
+            OnPropertyChanged(nameof(IsErrorVisible));
+        }
+    }
+
+    public bool IsErrorVisible
+    {
+        get => _isErrorVisible;
+        set
+        {
+            _isErrorVisible = value;
+            OnPropertyChanged(nameof(IsErrorVisible));
+        }
+    }
+
+    public bool IsLoginEnabled => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
+
+    public ICommand LoginCommand => new RelayCommand(Login);
+
+    public AuthenticationViewModel(AppDbContext dbContext)
+    {
+        this._dbContext = dbContext;
+        this.ErrorMessage = string.Empty;
+    }
+
+    private void Login(object parameter)
+    {
+        var resultedUser = _dbContext.Users.FirstOrDefault(u => u.Username == Username && u.Password == Password);
+
+        if (resultedUser != null)
+        {
+            if (resultedUser.Role == UserRole.Admin)
             {
-                _username = value;
-                OnPropertyChanged(nameof(Username));
-                OnPropertyChanged(nameof(IsLoginEnabled));
+                var mainView = new AdminView(this._dbContext, resultedUser);
+                mainView.Show();
+                Application.Current.MainWindow.Close();
+                Application.Current.MainWindow = mainView;
+            }
+            else if (resultedUser.Role == UserRole.Professor)
+            {
+                var mainView = new TeacherView(this._dbContext, resultedUser);
+                mainView.Show();
+                Application.Current.MainWindow.Close();
+                Application.Current.MainWindow = mainView;
+            }
+            else if (resultedUser.Role == UserRole.Student)
+            {
+                var mainView = new StudentView(this._dbContext, resultedUser);
+                mainView.Show();
+                Application.Current.MainWindow.Close();
+                Application.Current.MainWindow = mainView;
             }
         }
-
-        public string Password
+        else
         {
-            get => _password;
-            set
-            {
-                _password = value;
-                OnPropertyChanged(nameof(Password));
-                OnPropertyChanged(nameof(IsLoginEnabled));
-            }
-        }
-
-        public string ErrorMessage
-        {
-            get => _errorMessage;
-            set
-            {
-                _errorMessage = value;
-                OnPropertyChanged(nameof(ErrorMessage));
-                OnPropertyChanged(nameof(IsErrorVisible));
-            }
-        }
-
-        public bool IsErrorVisible
-        {
-            get => _isErrorVisible;
-            set
-            {
-                _isErrorVisible = value;
-                OnPropertyChanged(nameof(IsErrorVisible));
-            }
-        }
-
-        public bool IsLoginEnabled => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
-
-        public ICommand LoginCommand => new RelayCommand(Login);
-
-        public AuthenticationViewModel(AppDbContext dbContext)
-        {
-            this._dbContext = dbContext;
-            this.ErrorMessage = string.Empty;
-        }
-
-        private void Login(object parameter)
-        {
-            var result = _dbContext.Users.FirstOrDefault(u => u.Username == Username && u.Password == Password);
-
-            if (result != null)
-            {
-                if (result.Role == UserRole.Admin)
-                {
-                    var mainView = new AdminView();
-                    mainView.Show();
-                    Application.Current.MainWindow.Close();
-                    Application.Current.MainWindow = mainView;
-                }
-                else if (result.Role == UserRole.Professor)
-                {
-                    var mainView = new TeacherView();
-                    mainView.Show();
-                    Application.Current.MainWindow.Close();
-                    Application.Current.MainWindow = mainView;
-                }
-                else if (result.Role == UserRole.Student)
-                {
-                    var mainView = new StudentView();
-                    mainView.Show();
-                    Application.Current.MainWindow.Close();
-                    Application.Current.MainWindow = mainView;
-                }
-            }
-            else
-            {
-                ErrorMessage = "Invalid username or password";
-            }
+            ErrorMessage = "Invalid username or password";
         }
     }
 }

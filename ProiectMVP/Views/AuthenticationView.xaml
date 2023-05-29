@@ -5,11 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:ProiectMVP.ViewModels"
         mc:Ignorable="d"
-        Title="Sign In - Virtual School" Background="AliceBlue" Width="400" Height="500"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Window.DataContext>
-        <viewModels:AuthenticationViewModel />
-    </Window.DataContext>
-
+        Title="Sign In - Virtual School" Background="AliceBlue" Width="400" Height="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
-using ProiectMVP.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProiectMVP.Models;
 
 public class Student
 {
@@ -10,5 +15,4 @@ public class Student
     public User User { get; set; }
     public List<Absence> Absences { get; set; }
     public List<Grade> Grades { get; set; }
-
 }

@@ -11,20 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProiectMVP.ViewModels.AdminViewModels;
 
-namespace ProiectMVP.Views.Teacher
+namespace ProiectMVP.Views.AdminViews
 {
     /// <summary>
-    /// Interaction logic for TeacherView.xaml
+    /// Interaction logic for EditStudentView.xaml
     /// </summary>
-    public partial class TeacherView : Window
-	{
-		public static TeacherView instance;
-
-		public TeacherView()
-		{
-			instance = this;
-			InitializeComponent();
-		}
-	}
+    public partial class EditStudentView : Window
+    {
+        public EditStudentView()
+        {
+            InitializeComponent();
+            DataContext = new EditStudentViewModel();
+        }
+    }
 }
