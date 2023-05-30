@@ -9,17 +9,17 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
-    <None Remove="Assets\Img\ClassIcon.png" />
-    <None Remove="Assets\Img\LogoNew.png" />
-    <None Remove="Assets\Img\SemesterIcon.png" />
-    <None Remove="Assets\Img\SettingsIcon.png" />
-    <None Remove="Assets\Img\StudentIcon.png" />
-    <None Remove="Assets\Img\SubjectIcon.jpg" />
-    <None Remove="Assets\Img\TeacherIcon.png" />
+    <None Remove="Images\Img\ClassIcon.png" />
+    <None Remove="Images\Img\LogoNew.png" />
+    <None Remove="Images\Img\SemesterIcon.png" />
+    <None Remove="Images\Img\SettingsIcon.png" />
+    <None Remove="Images\Img\StudentIcon.png" />
+    <None Remove="Images\Img\SubjectIcon.jpg" />
+    <None Remove="Images\Img\TeacherIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Page Remove="Assets\Style\Page.xaml" />
+    <Page Remove="Images\Style\Page.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,14 +43,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Img\ClassIcon.png" />
-    <Resource Include="Assets\Img\LogoNew.png" />
-    <Resource Include="Assets\Img\SemesterIcon.png" />
-    <Resource Include="Assets\Img\SettingsIcon.png" />
-    <Resource Include="Assets\Img\StudentIcon.png" />
-    <Resource Include="Assets\Img\SubjectIcon.jpg" />
-    <Resource Include="Assets\Img\TeacherIcon.png" />
-    <Resource Include="Assets\Style\Page.xaml" />
+    <Resource Include="Images\Img\ClassIcon.png" />
+    <Resource Include="Images\Img\LogoNew.png" />
+    <Resource Include="Images\Img\SemesterIcon.png" />
+    <Resource Include="Images\Img\SettingsIcon.png" />
+    <Resource Include="Images\Img\StudentIcon.png" />
+    <Resource Include="Images\Img\SubjectIcon.jpg" />
+    <Resource Include="Images\Img\TeacherIcon.png" />
+    <Resource Include="Images\Style\Page.xaml" />
   </ItemGroup>
 
   <ItemGroup>

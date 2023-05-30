@@ -20,11 +20,8 @@ namespace ProiectMVP.Views.AdminViews
     /// </summary>
     public partial class AddCourseView : Window
     {
-        public static AddCourseView instance;
-
         public AddCourseView()
         {
-            instance = this;
             InitializeComponent();
             DataContext = new AddCourseViewModel();
         }

@@ -24,6 +24,42 @@ public class EditCourseViewModel : BaseViewModel
         }
     }
 
+    private string _specialization = string.Empty;
+    public string Specialization
+    {
+        get => _specialization;
+        set
+        {
+            _specialization = value;
+            OnPropertyChanged(nameof(Specialization));
+            OnPropertyChanged(nameof(CanSave));
+        }
+    }
+
+    private int _year = -1;
+    public int Year
+    {
+        get => _year;
+        set
+        {
+            _year = value;
+            OnPropertyChanged(nameof(Year));
+            OnPropertyChanged(nameof(CanSave));
+        }
+    }
+
+    private bool _hasThesis = false;
+    public bool HasThesis
+    {
+        get => _hasThesis;
+        set
+        {
+            _hasThesis = value;
+            OnPropertyChanged(nameof(HasThesis));
+            OnPropertyChanged(nameof(CanSave));
+        }
+    }
+
     public ICommand SaveCommand => new RelayCommand(Save, CanSave);
     public ICommand CloseCommand => new RelayCommand(Close);
 
@@ -32,7 +68,9 @@ public class EditCourseViewModel : BaseViewModel
     }
 
     private bool CanSave(object parameter) =>
-        !string.IsNullOrWhiteSpace(_name);
+        !string.IsNullOrWhiteSpace(this._name) &&
+        !string.IsNullOrWhiteSpace(this._specialization) &&
+        (this._year != -1);
 
     private static void Save(object parameter)
     {

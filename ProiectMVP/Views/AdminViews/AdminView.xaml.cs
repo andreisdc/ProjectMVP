@@ -30,5 +30,5 @@ namespace ProiectMVP.Views.AdminViews
 			InitializeComponent();
 			DataContext = new AdminViewModel(dbContext, user);
 		}
-	}
+    }
 }

@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.EntityFrameworkCore;
 using ProiectMVP.Data;
 using ProiectMVP.Models;
+using ProiectMVP.Views;
 using ProiectMVP.Views.AdminViews;
 
 namespace ProiectMVP.ViewModels.AdminViewModels;
@@ -68,6 +70,7 @@ public class AdminViewModel : BaseViewModel
         set
         {
             _selectedTeacher = value;
+            _teacherCourses = _selectedTeacher?.TeacherCourses.Select(tc => tc.Course).ToList() ?? new();
             OnPropertyChanged(nameof(SelectedTeacher));
             OnPropertyChanged(nameof(IsTeacherSelected));
         }
@@ -140,11 +143,36 @@ public class AdminViewModel : BaseViewModel
         set
         {
             _selectedGroup = value;
+            _groupCourses = _selectedGroup?.GroupCourses.Select(gc => gc.Course).ToList() ?? new();
             OnPropertyChanged(nameof(SelectedGroup));
             OnPropertyChanged(nameof(IsGroupSelected));
         }
     }
     public bool IsGroupSelected => SelectedGroup != null;
+
+    private List<Course> _groupCourses;
+    public List<Course> GroupCourses
+    {
+        get => _groupCourses;
+        set
+        {
+            _groupCourses = value;
+            OnPropertyChanged(nameof(GroupCourses));
+        }
+    }
+
+    private Course? _selectedGroupCourse;
+    public Course? SelectedGroupCourse
+    {
+        get => _selectedGroupCourse;
+        set
+        {
+            _selectedGroupCourse = value;
+            OnPropertyChanged(nameof(SelectedGroupCourse));
+            OnPropertyChanged(nameof(IsGroupCourseSelected));
+        }
+    }
+    public bool IsGroupCourseSelected => SelectedGroupCourse != null;
 
     public ICommand LogOutCommand => new RelayCommand(LogOut);
     public ICommand AddStudentCommand => new RelayCommand(AddStudent);
@@ -161,20 +189,62 @@ public class AdminViewModel : BaseViewModel
     public ICommand AddGroupCommand => new RelayCommand(AddGroup);
     public ICommand EditGroupCommand => new RelayCommand(EditGroup, CanActivateGroupCommand);
     public ICommand DeleteGroupCommand => new RelayCommand(DeleteGroup, CanActivateGroupCommand);
+    public ICommand AssignCourseToGroupCommand => new RelayCommand(AssignCourseToGroup);
+    public ICommand RemoveCourseFromGroupCommand => new RelayCommand(RemoveCourseFromGroup);
+
+    private void ReloadStudents()
+    {
+        this.Students = this._dbContext.Students
+            .Include(s => s.User)
+            .Include(s => s.Group)
+            .Include(s => s.Absences)
+            .Include(s => s.Grades)
+            .ToList();
+        this.SelectedStudent = null;
+    }
+
+    private void ReloadTeachers()
+    {
+        this.Teachers = this._dbContext.Teachers
+            .Include(t => t.User)
+            .Include(t => t.Group)
+            .Include(t => t.TeacherCourses)
+            .ToList();
+        this.SelectedTeacher = null;
+    }
+
+    private void ReloadCourses()
+    {
+        this.Courses = this._dbContext.Courses.ToList();
+        this.SelectedCourse = null;
+    }
+
+    private void ReloadGroups()
+    {
+        this.Groups = this._dbContext.Groups
+            .Include(g => g.ClassMaster)
+            .Include(g => g.GroupCourses)
+            .Include(g => g.Students)
+            .ToList();
+        this.SelectedGroup = null;
+    }
 
     public AdminViewModel(AppDbContext dbContext, User user)
     {
         this._dbContext = dbContext;
         this.LoggedInUser = user;
-        this.Students = dbContext.Students.ToList();
-        this.Teachers = dbContext.Teachers.ToList();
-        this.Courses = dbContext.Courses.ToList();
-        this.Groups = dbContext.Groups.ToList();
+        this.ReloadStudents();
+        this.ReloadTeachers();
+        this.ReloadCourses();
+        this.ReloadGroups();
     }
 
     public void LogOut(object paramater)
     {
-        throw new NotImplementedException();
+        var mainView = new AuthenticationView(this._dbContext);
+        mainView.Show();
+        Application.Current.MainWindow.Close();
+        Application.Current.MainWindow = mainView;
     }
 
     public void AddStudent(object parameter)
@@ -198,6 +268,9 @@ public class AdminViewModel : BaseViewModel
                 User = newUser,
                 GroupId = newViewModel.GroupId,
             });
+            this._dbContext.SaveChanges();
+
+            this.ReloadStudents();
         }
     }
 
@@ -224,6 +297,9 @@ public class AdminViewModel : BaseViewModel
             SelectedStudent.GroupId = newViewModel.GroupId;
 
             this._dbContext.Students.Update(SelectedStudent);
+            this._dbContext.SaveChanges();
+
+            this.ReloadStudents();
         }
     }
 
@@ -235,10 +311,10 @@ public class AdminViewModel : BaseViewModel
 
         if (result == MessageBoxResult.Yes)
         {
-            this._dbContext.Students.Remove(new Student
-            {
-                Id = SelectedStudent.Id
-            });
+            this._dbContext.Students.Remove(SelectedStudent);
+            this._dbContext.SaveChanges();
+
+            this.ReloadStudents();
         }
     }
 
@@ -262,6 +338,9 @@ public class AdminViewModel : BaseViewModel
             {
                 User = newUser,
             });
+            this._dbContext.SaveChanges();
+
+            this.ReloadTeachers();
         }
     }
 
@@ -287,6 +366,8 @@ public class AdminViewModel : BaseViewModel
 
             this._dbContext.Teachers.Update(SelectedTeacher);
             this._dbContext.SaveChanges();
+
+            this.ReloadTeachers();
         }
     }
 
@@ -303,6 +384,8 @@ public class AdminViewModel : BaseViewModel
                 Id = SelectedTeacher.Id
             });
             this._dbContext.SaveChanges();
+
+            this.ReloadTeachers();
         }
     }
 
@@ -317,6 +400,8 @@ public class AdminViewModel : BaseViewModel
             CourseId = SelectedCourse.Id
         });
         this._dbContext.SaveChanges();
+
+        this.ReloadTeachers();
     }
 
     public void RemoveCourseFromTeacher(object parameter)
@@ -330,6 +415,8 @@ public class AdminViewModel : BaseViewModel
             CourseId = SelectedTeacherCourse.Id
         });
         this._dbContext.SaveChanges();
+
+        this.ReloadTeachers();
     }
 
     public void AddCourse(object parameter)
@@ -341,9 +428,14 @@ public class AdminViewModel : BaseViewModel
         {
             this._dbContext.Courses.Add(new Course
             {
-                Name = newViewModel.Name
+                Name = newViewModel.Name,
+                Specialization = newViewModel.Specialization,
+                Year = newViewModel.Year,
+                HasThesis = newViewModel.HasThesis,
             });
             this._dbContext.SaveChanges();
+
+            this.ReloadCourses();
         }
     }
 
@@ -356,13 +448,21 @@ public class AdminViewModel : BaseViewModel
         var newView = new EditCourseView();
         var newViewModel = (EditCourseViewModel)newView.DataContext;
         newViewModel.Name = SelectedCourse.Name;
+        newViewModel.Specialization = SelectedCourse.Specialization;
+        newViewModel.Year = SelectedCourse.Year;
+        newViewModel.HasThesis = SelectedCourse.HasThesis;
 
         if (newView.ShowDialog().GetValueOrDefault())
         {
             SelectedCourse.Name = newViewModel.Name;
+            SelectedCourse.Specialization = newViewModel.Specialization;
+            SelectedCourse.Year = newViewModel.Year;
+            SelectedCourse.HasThesis = newViewModel.HasThesis;
 
             this._dbContext.Courses.Update(SelectedCourse);
             this._dbContext.SaveChanges();
+
+            this.ReloadCourses();
         }
     }
 
@@ -379,6 +479,8 @@ public class AdminViewModel : BaseViewModel
                 Id = SelectedCourse.Id
             });
             this._dbContext.SaveChanges();
+
+            this.ReloadCourses();
         }
     }
 
@@ -391,9 +493,14 @@ public class AdminViewModel : BaseViewModel
         {
             this._dbContext.Groups.Add(new Group
             {
-                Name = newViewModel.Name
+                Name = newViewModel.Name,
+                Specialization = newViewModel.Specialization,
+                Year = newViewModel.Year,
+                ClassMasterId = newViewModel.ClassMasterId,
             });
             this._dbContext.SaveChanges();
+
+            this.ReloadGroups();
         }
     }
 
@@ -408,15 +515,19 @@ public class AdminViewModel : BaseViewModel
         newViewModel.Name = SelectedGroup.Name;
         newViewModel.Specialization = SelectedGroup.Specialization;
         newViewModel.Year = SelectedGroup.Year;
+        newViewModel.ClassMasterId = SelectedGroup.ClassMasterId;
 
         if (newView.ShowDialog().GetValueOrDefault())
         {
             SelectedGroup.Name = newViewModel.Name;
             SelectedGroup.Specialization = newViewModel.Specialization;
             SelectedGroup.Year = newViewModel.Year;
+            SelectedGroup.ClassMasterId = newViewModel.ClassMasterId;
 
             this._dbContext.Groups.Update(SelectedGroup);
             this._dbContext.SaveChanges();
+
+            this.ReloadGroups();
         }
     }
 
@@ -432,6 +543,39 @@ public class AdminViewModel : BaseViewModel
             {
                 Id = SelectedGroup.Id
             });
+            this._dbContext.SaveChanges();
+
+            this.ReloadGroups();
         }
+    }
+
+    public void AssignCourseToGroup(object parameter)
+    {
+        if (SelectedGroup == null) return;
+        if (SelectedCourse == null) return;
+
+        this._dbContext.GroupCourses.Add(new GroupCourse
+        {
+            GroupId = SelectedGroup.Id,
+            CourseId = SelectedCourse.Id
+        });
+        this._dbContext.SaveChanges();
+
+        this.ReloadGroups();
+    }
+
+    public void RemoveCourseFromGroup(object parameter)
+    {
+        if (SelectedGroup == null) return;
+        if (SelectedGroupCourse == null) return;
+
+        this._dbContext.GroupCourses.Remove(new GroupCourse
+        {
+            GroupId = SelectedGroup.Id,
+            CourseId = SelectedGroupCourse.Id
+        });
+        this._dbContext.SaveChanges();
+
+        this.ReloadGroups();
     }
 }

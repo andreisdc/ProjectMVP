@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using ProiectMVP.Data;
 using ProiectMVP.Models;
+using ProiectMVP.Views;
 
 namespace ProiectMVP.ViewModels.StudentViewModels;
 
@@ -32,8 +34,11 @@ public class StudentViewModel : BaseViewModel
         this._loggedInUser = user;
     }
 
-    private void LogOut(object parameter)
+    public void LogOut(object paramater)
     {
-        throw new NotImplementedException();
+        var mainView = new AuthenticationView(this._dbContext);
+        mainView.Show();
+        Application.Current.MainWindow.Close();
+        Application.Current.MainWindow = mainView;
     }
 }

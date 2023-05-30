@@ -20,11 +20,8 @@ namespace ProiectMVP.Views.AdminViews
     /// </summary>
     public partial class EditTeacherView : Window
     {
-        public static EditTeacherView instance;
-
         public EditTeacherView()
         {
-            instance = this;
             InitializeComponent();
             DataContext = new EditTeacherViewModel();
         }

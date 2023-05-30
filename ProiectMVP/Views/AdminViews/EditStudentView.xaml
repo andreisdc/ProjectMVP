@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProiectMVP.Views.AdminViews"
         xmlns:viewModels="clr-namespace:ProiectMVP.ViewModels.AdminViewModels"
         mc:Ignorable="d"
-        Title="Edit Student" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Edit Student" Width="450" SizeToContent="Height" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.DataContext>
         <viewModels:EditStudentViewModel />
     </Window.DataContext>
@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Image Grid.Column="0" Source="/Assets/add.png" Width="60" />
+            <Image Grid.Column="0" Source="pack://application:,,,/Images/edit.png" Width="60" />
 
             <Grid Grid.Column="1" Margin="10, 0, 0, 0">
                 <Grid.RowDefinitions>
@@ -30,13 +30,16 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Content="Add Student" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                <Label Grid.Row="1" Content="Add a new student" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <Label Grid.Row="0" Content="Edit Student" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <Label Grid.Row="1" Content="Edit an existing student" HorizontalAlignment="Left" VerticalAlignment="Center" />
             </Grid>
         </Grid>
 
         <Grid Grid.Row="1" Background="WhiteSmoke">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
@@ -65,9 +68,42 @@
                 <TextBox Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
 
-            <Separator Grid.Row="2" Margin="10"/>
+            <Grid Grid.Row="2" Margin="10, 10, 10, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="3" Margin="10">
+                <Label Grid.Column="0" Content="Username:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
+
+                <TextBox Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+
+            <Grid Grid.Row="3" Margin="10, 10, 10, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
+
+                <TextBox Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+
+            <Grid Grid.Row="4" Margin="10, 10, 10, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Group:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
+
+                <TextBox Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding GroupId, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+
+            <Separator Grid.Row="5" Margin="10"/>
+
+            <Grid Grid.Row="6" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -79,7 +115,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Margin="5, 0, 0, 0" Content="Add" Width="80" Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" />
+                    <Button Grid.Column="0" Margin="5, 0, 0, 0" Content="Save" Width="80" Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" />
                     <Button Grid.Column="1" Margin="5, 0, 0, 0" Content="Close" Width="80" Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" />
                 </Grid>
             </Grid>

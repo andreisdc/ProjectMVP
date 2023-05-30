@@ -24,7 +24,7 @@ public class AddGroupViewModel : BaseViewModel
         }
     }
 
-    private string _specialization = String.Empty;
+    private string _specialization = string.Empty;
     public string Specialization
     {
         get => _specialization;
@@ -48,6 +48,18 @@ public class AddGroupViewModel : BaseViewModel
         }
     }
 
+    private int _classMasterId = -1;
+    public int ClassMasterId
+    {
+        get => _classMasterId;
+        set
+        {
+            _classMasterId = value;
+            OnPropertyChanged(nameof(ClassMasterId));
+            OnPropertyChanged(nameof(CanAdd));
+        }
+    }
+
     public ICommand AddCommand => new RelayCommand(Add, CanAdd);
     public ICommand CloseCommand => new RelayCommand(Close);
 
@@ -58,7 +70,8 @@ public class AddGroupViewModel : BaseViewModel
     private bool CanAdd(object parameter) =>
         !string.IsNullOrWhiteSpace(this._name) &&
         !string.IsNullOrWhiteSpace(this._specialization) &&
-        (this._year != -1);
+        (this._year != -1) &&
+        (this._classMasterId != -1);
 
     private static void Add(object parameter)
     {

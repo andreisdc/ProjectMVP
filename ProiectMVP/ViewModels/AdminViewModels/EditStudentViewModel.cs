@@ -12,7 +12,7 @@ namespace ProiectMVP.ViewModels.AdminViewModels;
 
 public class EditStudentViewModel : BaseViewModel
 {
-    private string _firstName;
+    private string _firstName = string.Empty;
     public string FirstName
     {
         get => _firstName;
@@ -24,7 +24,7 @@ public class EditStudentViewModel : BaseViewModel
         }
     }
 
-    private string _lastName;
+    private string _lastName = string.Empty;
     public string LastName
     {
         get => _lastName;
@@ -36,7 +36,7 @@ public class EditStudentViewModel : BaseViewModel
         }
     }
 
-    private string _username;
+    private string _username = string.Empty;
     public string Username
     {
         get => _username;
@@ -48,7 +48,7 @@ public class EditStudentViewModel : BaseViewModel
         }
     }
 
-    private string _password;
+    private string _password = string.Empty;
     public string Password
     {
         get => _password;

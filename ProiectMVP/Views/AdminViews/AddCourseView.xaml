@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:ProiectMVP.Views.AdminViews"
         xmlns:viewModels="clr-namespace:ProiectMVP.ViewModels.AdminViewModels"
         mc:Ignorable="d"
-        Title="Add Course" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Add Course" Width="450" SizeToContent="Height" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewModels:AddCourseViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -19,7 +22,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Image Grid.Column="0" Source="/Assets/add.png" Width="60" />
+            <Image Grid.Column="0" Source="pack://application:,,,/Images/add.png" Width="60" />
 
             <Grid Grid.Column="1" Margin="10, 0, 0, 0">
                 <Grid.RowDefinitions>
@@ -34,6 +37,9 @@
 
         <Grid Grid.Row="1" Background="WhiteSmoke">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
@@ -50,9 +56,42 @@
                 <TextBox Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
 
-            <Separator Grid.Row="1" Margin="10"/>
+            <Grid Grid.Row="1" Margin="10, 10, 10, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="2" Margin="10">
+                <Label Grid.Column="0" Content="Specialization:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
+
+                <TextBox Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding Specialization, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="10, 10, 10, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Year:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
+
+                <TextBox Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding Year, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+
+            <Grid Grid.Row="3" Margin="10, 10, 10, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Has Thesis?:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
+
+                <CheckBox Grid.Column="1" Margin="10" Content="{Binding HasThesis, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+
+            <Separator Grid.Row="4" Margin="10"/>
+
+            <Grid Grid.Row="5" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>

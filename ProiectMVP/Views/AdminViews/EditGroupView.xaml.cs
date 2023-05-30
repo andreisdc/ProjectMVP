@@ -20,11 +20,8 @@ namespace ProiectMVP.Views.AdminViews
     /// </summary>
     public partial class EditGroupView : Window
     {
-        public static EditGroupView instance;
-
         public EditGroupView()
         {
-            instance = this;
             InitializeComponent();
             DataContext = new EditGroupViewModel();
         }

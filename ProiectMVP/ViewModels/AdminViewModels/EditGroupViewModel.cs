@@ -12,7 +12,7 @@ namespace ProiectMVP.ViewModels.AdminViewModels;
 
 public class EditGroupViewModel : BaseViewModel
 {
-    private string _name = String.Empty;
+    private string _name = string.Empty;
     public string Name
     {
         get => _name;
@@ -24,7 +24,7 @@ public class EditGroupViewModel : BaseViewModel
         }
     }
 
-    private string _specialization = String.Empty;
+    private string _specialization = string.Empty;
     public string Specialization
     {
         get => _specialization;
@@ -48,6 +48,18 @@ public class EditGroupViewModel : BaseViewModel
         }
     }
 
+    private int _classMasterId = -1;
+    public int ClassMasterId
+    {
+        get => _classMasterId;
+        set
+        {
+            _classMasterId = value;
+            OnPropertyChanged(nameof(ClassMasterId));
+            OnPropertyChanged(nameof(CanSave));
+        }
+    }
+
     public ICommand SaveCommand => new RelayCommand(Save, CanSave);
     public ICommand CloseCommand => new RelayCommand(Close);
 
@@ -58,7 +70,8 @@ public class EditGroupViewModel : BaseViewModel
     private bool CanSave(object parameter) =>
         !string.IsNullOrWhiteSpace(this._name) &&
         !string.IsNullOrWhiteSpace(this._specialization) &&
-        (this._year != -1);
+        (this._year != -1) &&
+        (this._classMasterId != -1);
 
     private static void Save(object parameter)
     {
