@@ -70,13 +70,11 @@ public class ClassMasterViewModel : BaseViewModel
 
             if (value != null)
             {
-                _courseStudyMaterials = value.StudyMaterials.ToList();
-                _students = value.GroupCourses
+                CourseStudyMaterials = value.StudyMaterials.ToList();
+                Students = value.GroupCourses
                     .Select(gc => gc.Group.Students)
                     .SelectMany(s => s)
                     .ToList();
-                OnPropertyChanged(nameof(CourseStudyMaterials));
-                OnPropertyChanged(nameof(Students));
             }
         }
     }
@@ -135,12 +133,9 @@ public class ClassMasterViewModel : BaseViewModel
 
             if (value != null)
             {
-                _studentGrades = value.Grades.ToList();
-                _studentAverages = value.Averages.ToList();
-                _studentAbsences = value.Absences.ToList();
-                OnPropertyChanged(nameof(StudentGrades));
-                OnPropertyChanged(nameof(StudentAverages));
-                OnPropertyChanged(nameof(StudentAbsences));
+                StudentGrades = value.Grades.ToList();
+                StudentAverages = value.Averages.ToList();
+                StudentAbsences = value.Absences.ToList();
             }
         }
     }
@@ -231,10 +226,25 @@ public class ClassMasterViewModel : BaseViewModel
 
     private void ReloadCourses()
     {
-        this.Courses = this.Group!.GroupCourses
-            .Select(gc => gc.Course)
+        this.Courses = this._dbContext.Courses
+            .Include(c => c.GroupCourses)
+            .Include(c => c.StudyMaterials)
+            .Where(c => c.GroupCourses.Any(gc => gc.GroupId == this.Group!.Id))
             .ToList();
         this.SelectedCourse = null;
+    }
+
+    private void ReloadStudents()
+    {
+        this.Students = this._dbContext.Students
+            .Include(s => s.User)
+            .Include(s => s.Group)
+            .Include(s => s.Grades)
+            .Include(s => s.Averages)
+            .Include(s => s.Absences)
+            .Where(s => s.GroupId == this.Group!.Id)
+            .ToList();
+        this.SelectedStudent = null;
     }
 
     public ClassMasterViewModel(AppDbContext dbContext, Teacher teacher)

@@ -72,9 +72,15 @@ public class TeacherViewModel : BaseViewModel
             if (value != null)
             {
                 CourseStudyMaterials = value.StudyMaterials.ToList();
-                Students = value.GroupCourses
+                Students = this._dbContext.GroupCourses
+                    .Include(gc => gc.Group)
                     .Select(gc => gc.Group.Students)
                     .SelectMany(s => s)
+                    .Include(s => s.User)
+                    .Include(s => s.Group)
+                    .Include(s => s.Grades)
+                    .Include(s => s.Averages)
+                    .Include(s => s.Absences)
                     .ToList();
             }
         }
@@ -236,18 +242,6 @@ public class TeacherViewModel : BaseViewModel
     public ICommand CalculateStudentAverageCommand => new RelayCommand(CalculateStudentAverage);
     public ICommand CancelStudentAverageCommand => new RelayCommand(CancelStudentAverage);
 
-    private void ReloadStudents()
-    {
-        this.Students = this._dbContext.Students
-            .Include(s => s.User)
-            .Include(s => s.Group)
-            .Include(s => s.Grades)
-            .Include(s => s.Averages)
-            .Include(s => s.Absences)
-            .ToList();
-        this.SelectedStudent = null;
-    }
-
     private void ReloadCourses()
     {
         int teacherId = this.LoggedInUser.Teacher.Id;
@@ -255,11 +249,21 @@ public class TeacherViewModel : BaseViewModel
             .Where(c => c.TeacherId == teacherId)
             .Include(c => c.GroupCourses)
             .Include(c => c.StudyMaterials)
-            .Include(c => c.Absences)
-            .Include(c => c.Grades)
-            .Include(c => c.Averages)
             .ToList();
         this.SelectedCourse = null;
+    }
+
+    private void ReloadStudents()
+    {
+        this.Students = this._dbContext.Students
+            .Where(s => s.GroupId == this.SelectedCourse!.GroupCourses.First().GroupId)
+            .Include(s => s.User)
+            .Include(s => s.Group)
+            .Include(s => s.Grades)
+            .Include(s => s.Averages)
+            .Include(s => s.Absences)
+            .ToList();
+        this.SelectedStudent = null;
     }
 
     public TeacherViewModel(AppDbContext dbContext, User user)
@@ -338,14 +342,20 @@ public class TeacherViewModel : BaseViewModel
                 IsMotivated = false,
             });
             this._dbContext.SaveChanges();
-
-            this.ReloadCourses();
+            
+            this.ReloadStudents();
         }
     }
 
     private void CancelStudentAbsence(object parameter)
     {
         if (SelectedStudentAbsence == null) return;
+
+        if (SelectedStudentAbsence.IsMotivated)
+        {
+            MessageBox.Show("Absence already motivated.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
 
         var result = MessageBox.Show("Are you sure you want to motivate this absence?", "Motivate", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
@@ -356,7 +366,7 @@ public class TeacherViewModel : BaseViewModel
             this._dbContext.Absences.Update(SelectedStudentAbsence);
             this._dbContext.SaveChanges();
 
-            this.ReloadCourses();
+            this.ReloadStudents();
         }
     }
 
@@ -395,7 +405,7 @@ public class TeacherViewModel : BaseViewModel
             });
             this._dbContext.SaveChanges();
 
-            this.ReloadCourses();
+            this.ReloadStudents();
         }
     }
 
@@ -412,7 +422,7 @@ public class TeacherViewModel : BaseViewModel
             this._dbContext.Grades.Update(SelectedStudentGrade);
             this._dbContext.SaveChanges();
 
-            this.ReloadCourses();
+            this.ReloadStudents();
         }
     }
 
@@ -460,7 +470,7 @@ public class TeacherViewModel : BaseViewModel
             });
             this._dbContext.SaveChanges();
 
-            this.ReloadCourses();
+            this.ReloadStudents();
         }
     }
 
@@ -477,7 +487,7 @@ public class TeacherViewModel : BaseViewModel
             this._dbContext.Averages.Update(SelectedStudentAverage);
             this._dbContext.SaveChanges();
 
-            this.ReloadCourses();
+            this.ReloadStudents();
         }
     }
 }

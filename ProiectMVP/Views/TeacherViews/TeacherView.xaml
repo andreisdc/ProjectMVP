@@ -111,6 +111,7 @@
                                     <DataGridTextColumn Header="Last Name" Binding="{Binding User.LastName}"/>
                                     <DataGridTextColumn Header="First Name" Binding="{Binding User.FirstName}"/>
                                     <DataGridTextColumn Header="Username" Binding="{Binding User.Username}"/>
+                                    <DataGridTextColumn Header="Group ID" Binding="{Binding Group.Id}"/>
                                     <DataGridTextColumn Header="Group name" Binding="{Binding Group.Name}"/>
                                     <DataGridTextColumn Header="Group specialization" Binding="{Binding Group.Specialization}"/>
                                     <DataGridTextColumn Header="Group year" Binding="{Binding Group.Year}"/>
@@ -137,14 +138,14 @@
 
                                     <Button Grid.Column="2" Content="New" Command="{Binding AddStudentAbsenceCommand}"/>
 
-                                    <Button Grid.Column="4" Content="Cancel" Command="{Binding CancelStudentAbsenceCommand}" IsEnabled="{Binding Path=IsStudentAbsenceSelected}"/>
+                                    <Button Grid.Column="4" Content="Motivate" Command="{Binding CancelStudentAbsenceCommand}" IsEnabled="{Binding Path=IsStudentAbsenceSelected}"/>
                                 </Grid>
 
                                 <DataGrid Grid.Row="1" Margin="0, 10, 0, 0" ItemsSource="{Binding StudentAbsences}" SelectedItem="{Binding SelectedStudentAbsence, Mode=TwoWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
                                         <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-                                        <DataGridTextColumn Header="Is cancelled?" Binding="{Binding IsCancelled}"/>
+                                        <DataGridCheckBoxColumn Header="Is motivated?" Binding="{Binding IsMotivated, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>

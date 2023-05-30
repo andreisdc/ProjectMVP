@@ -57,6 +57,7 @@
                             <DataGridTextColumn Header="Last Name" Binding="{Binding User.LastName}"/>
                             <DataGridTextColumn Header="First Name" Binding="{Binding User.FirstName}"/>
                             <DataGridTextColumn Header="Username" Binding="{Binding User.Username}"/>
+                            <DataGridTextColumn Header="Group ID" Binding="{Binding Group.Id}"/>
                             <DataGridTextColumn Header="Group name" Binding="{Binding Group.Name}"/>
                             <DataGridTextColumn Header="Group specialization" Binding="{Binding Group.Specialization}"/>
                             <DataGridTextColumn Header="Group year" Binding="{Binding Group.Year}"/>
