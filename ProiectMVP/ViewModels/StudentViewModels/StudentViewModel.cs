@@ -92,12 +92,17 @@ public class StudentViewModel : BaseViewModel
     private void LoadData()
     {
         this.Grades = this._dbContext.Grades
-            .Where(g => g.StudentId == this.LoggedInUser.Id)
+            .Where(g => g.StudentId == this.LoggedInUser.Student.Id)
             .Include(g => g.Course)
+            .ToList();
+        
+        this.GradeAverages = this._dbContext.Averages
+            .Where(a => a.StudentId == this.LoggedInUser.Student.Id)
+            .Include(a => a.Course)
             .ToList();
 
         this.Absences = this._dbContext.Absences
-            .Where(a => a.StudentId == this.LoggedInUser.Id)
+            .Where(a => a.StudentId == this.LoggedInUser.Student.Id)
             .Include(a => a.Course)
             .ToList();
     }

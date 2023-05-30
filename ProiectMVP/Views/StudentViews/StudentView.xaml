@@ -57,7 +57,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Note">
+            <TabItem Header="Grades">
                 <DataGrid Margin="10" ItemsSource="{Binding Path=Grades}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
@@ -72,7 +72,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Header="Medii">
+            <TabItem Header="Grade totals">
                 <DataGrid Margin="10" ItemsSource="{Binding Path=GradeAverages}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
@@ -82,7 +82,8 @@
                         <DataGridTextColumn Header="Course specialization" Binding="{Binding Course.Specialization}"/>
                         <DataGridTextColumn Header="Course year" Binding="{Binding Course.Year}"/>
                         <DataGridTextColumn Header="Semester" Binding="{Binding Semester}"/>
-                        <DataGridTextColumn Header="Is cancelled?" Binding="{Binding IsCancelled}"/>
+                        <DataGridTextColumn Header="Is Thesis?" Binding="{Binding IsThesis}"/>
+                        <DataGridTextColumn Header="Is Cancelled?" Binding="{Binding IsCancelled}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -95,7 +96,7 @@
                         <DataGridTextColumn Header="Course specialization" Binding="{Binding Course.Specialization}"/>
                         <DataGridTextColumn Header="Course year" Binding="{Binding Course.Year}"/>
                         <DataGridTextColumn Header="Semester" Binding="{Binding Semester}"/>
-                        <DataGridTextColumn Header="Is cancelled?" Binding="{Binding IsCancelled}"/>
+                        <DataGridTextColumn Header="Is Cancelled?" Binding="{Binding IsCancelled}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

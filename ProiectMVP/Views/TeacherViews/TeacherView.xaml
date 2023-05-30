@@ -176,6 +176,10 @@
                                 <DataGrid Grid.Row="1" Margin="0, 10, 0, 0" ItemsSource="{Binding StudentGrades}" SelectedItem="{Binding SelectedStudentGrade, Mode=TwoWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
+                                        <DataGridTextColumn Header="Grade" Binding="{Binding Value}"/>
+                                        <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                                        <DataGridCheckBoxColumn Header="Is Thesis?" Binding="{Binding IsThesis}"/>
+                                        <DataGridCheckBoxColumn Header="Is Cancelled?" Binding="{Binding IsCancelled}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -206,6 +210,9 @@
                                 <DataGrid Grid.Row="1" Margin="0, 10, 0, 0" ItemsSource="{Binding StudentAverages}" SelectedItem="{Binding SelectedStudentAverage, Mode=TwoWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
+                                        <DataGridTextColumn Header="Grade" Binding="{Binding Value}"/>
+                                        <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                                        <DataGridCheckBoxColumn Header="Is Cancelled?" Binding="{Binding IsCancelled}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
