@@ -484,10 +484,7 @@ public class AdminViewModel : BaseViewModel
 
         if (result == MessageBoxResult.Yes)
         {
-            this._dbContext.Groups.Remove(new Group
-            {
-                Id = SelectedGroup.Id
-            });
+            this._dbContext.Groups.Remove(SelectedGroup);
             this._dbContext.SaveChanges();
 
             this.ReloadGroups();

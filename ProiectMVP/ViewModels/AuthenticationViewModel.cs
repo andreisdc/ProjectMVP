@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.EntityFrameworkCore;
 using ProiectMVP.Data;
 using ProiectMVP.Models;
 using ProiectMVP.Service;
@@ -80,7 +81,10 @@ public class AuthenticationViewModel : BaseViewModel
 
     private void Login(object parameter)
     {
-        var resultedUser = _dbContext.Users.FirstOrDefault(u => u.Username == Username && u.Password == Password);
+        var resultedUser = _dbContext.Users
+            .Include(u => u.Teacher)
+            .Include(u => u.Student)
+            .FirstOrDefault(u => u.Username == Username && u.Password == Password);
 
         if (resultedUser != null)
         {

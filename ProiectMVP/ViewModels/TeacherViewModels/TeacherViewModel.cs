@@ -338,8 +338,8 @@ public class TeacherViewModel : BaseViewModel
             {
                 StudentId = SelectedStudent.Id,
                 CourseId = SelectedCourse.Id,
-                Semester = newViewModel.Semester,
                 Date = newViewModel.Date,
+                Semester = newViewModel.Semester,
                 IsMotivated = false,
             });
             this._dbContext.SaveChanges();
@@ -367,7 +367,27 @@ public class TeacherViewModel : BaseViewModel
 
     private void AddStudentGrade(object parameter)
     {
+        if (SelectedStudent == null) return;
+        if (SelectedCourse == null) return;
 
+        var newView = new AddStudentGradeView();
+        var newViewModel = (AddStudentGradeViewModel)newView.DataContext;
+
+        if (newView.ShowDialog().GetValueOrDefault())
+        {
+            this._dbContext.Grades.Add(new Grade
+            {
+                StudentId = SelectedStudent.Id,
+                CourseId = SelectedCourse.Id,
+                Value = newViewModel.Value,
+                Date = newViewModel.Date,
+                Semester = newViewModel.Semester,
+                IsCanceled = false,
+            });
+            this._dbContext.SaveChanges();
+
+            this.ReloadCourses();
+        }
     }
 
     private void CancelStudentGrade(object parameter)

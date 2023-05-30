@@ -87,7 +87,7 @@
                     </TabControl>
                 </Grid>
             </TabItem>
-            <TabItem Header="Students">
+            <TabItem Header="Students" IsEnabled="{Binding IsCourseSelected}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
