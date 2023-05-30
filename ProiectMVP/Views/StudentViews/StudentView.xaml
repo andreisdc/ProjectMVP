@@ -17,54 +17,85 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Content="{Binding Path=LoggedInUser.FirstName, FallbackValue='n/a'}" ContentStringFormat="Welcome to your classroom, {0}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" FontSize="20"/>
             <Button Grid.Column="1" Content="Log out" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="75" Command="{Binding LogOutCommand}"/>
+            <Button Grid.Column="2" Content="Reload" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="75" Command="{Binding ReloadCommand}"/>
         </Grid>
 
         <TabControl Grid.Row="1" Margin="10">
-            <TabItem Header="Material didactic">
-                <DataGrid Margin="10">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
-                        <DataGridTextColumn Header="Prenume" Binding="{Binding Prenume}"/>
-                        <DataGridTextColumn Header="An" Binding="{Binding An}"/>
-                        <DataGridTextColumn Header="Grupa" Binding="{Binding Grupa}"/>
-                        <DataGridTextColumn Header="Specializare" Binding="{Binding Specializare}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <TabItem Header="Materiale didactice">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Content="{Binding SelectedStudyMaterial.Name, FallbackValue='none'}" ContentStringFormat="Selected file: {0}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
+
+                        <Button Grid.Column="2" Content="Download" Command="{Binding DownloadMaterialCommand}" IsEnabled="{Binding Path=IsStudyMaterialSelected}"/>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1" Margin="0, 10, 0, 0" ItemsSource="{Binding Path=StudyMaterials}" SelectedItem="{Binding Path=SelectedStudyMaterial, Mode=TwoWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Course name" Binding="{Binding Course.Name}"/>
+                            <DataGridTextColumn Header="Course specialization" Binding="{Binding Course.Specialization}"/>
+                            <DataGridTextColumn Header="Course year" Binding="{Binding Course.Year}"/>
+                            <DataGridTextColumn Header="Semester" Binding="{Binding Semester}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="Note">
-                <DataGrid Margin="10">
+                <DataGrid Margin="10" ItemsSource="{Binding Path=Grades}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
-                        <DataGridTextColumn Header="Prenume" Binding="{Binding Prenume}"/>
-                        <DataGridTextColumn Header="An" Binding="{Binding An}"/>
-                        <DataGridTextColumn Header="Grupa" Binding="{Binding Grupa}"/>
-                        <DataGridTextColumn Header="Specializare" Binding="{Binding Specializare}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-            <TabItem Header="Absente">
-                <DataGrid Margin="10">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
-                        <DataGridTextColumn Header="Prenume" Binding="{Binding Prenume}"/>
-                        <DataGridTextColumn Header="An" Binding="{Binding An}"/>
-                        <DataGridTextColumn Header="Grupa" Binding="{Binding Grupa}"/>
-                        <DataGridTextColumn Header="Specializare" Binding="{Binding Specializare}"/>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
+                        <DataGridTextColumn Header="Grade" Binding="{Binding Value}"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                        <DataGridTextColumn Header="Is Thesis?" Binding="{Binding IsThesis}"/>
+                        <DataGridTextColumn Header="Course name" Binding="{Binding Course.Name}"/>
+                        <DataGridTextColumn Header="Course specialization" Binding="{Binding Course.Specialization}"/>
+                        <DataGridTextColumn Header="Course year" Binding="{Binding Course.Year}"/>
+                        <DataGridTextColumn Header="Semester" Binding="{Binding Semester}"/>
+                        <DataGridTextColumn Header="Is cancelled?" Binding="{Binding IsCancelled}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
             <TabItem Header="Medii">
-                <DataGrid Margin="10">
+                <DataGrid Margin="10" ItemsSource="{Binding Path=GradeAverages}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
-                        <DataGridTextColumn Header="Prenume" Binding="{Binding Prenume}"/>
-                        <DataGridTextColumn Header="An" Binding="{Binding An}"/>
-                        <DataGridTextColumn Header="Grupa" Binding="{Binding Grupa}"/>
-                        <DataGridTextColumn Header="Specializare" Binding="{Binding Specializare}"/>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
+                        <DataGridTextColumn Header="Grade" Binding="{Binding Value}"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                        <DataGridTextColumn Header="Course name" Binding="{Binding Course.Name}"/>
+                        <DataGridTextColumn Header="Course specialization" Binding="{Binding Course.Specialization}"/>
+                        <DataGridTextColumn Header="Course year" Binding="{Binding Course.Year}"/>
+                        <DataGridTextColumn Header="Semester" Binding="{Binding Semester}"/>
+                        <DataGridTextColumn Header="Is cancelled?" Binding="{Binding IsCancelled}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Absente">
+                <DataGrid Margin="10" ItemsSource="{Binding Path=Absences}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                        <DataGridTextColumn Header="Course name" Binding="{Binding Course.Name}"/>
+                        <DataGridTextColumn Header="Course specialization" Binding="{Binding Course.Specialization}"/>
+                        <DataGridTextColumn Header="Course year" Binding="{Binding Course.Year}"/>
+                        <DataGridTextColumn Header="Semester" Binding="{Binding Semester}"/>
+                        <DataGridTextColumn Header="Is cancelled?" Binding="{Binding IsCancelled}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

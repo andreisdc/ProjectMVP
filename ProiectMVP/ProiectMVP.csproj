@@ -79,6 +79,12 @@
     <Compile Update="Views\AdminViews\AddTeacherView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\TeacherViews\AddStudentGradeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TeacherViews\AddStudentAbsenceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

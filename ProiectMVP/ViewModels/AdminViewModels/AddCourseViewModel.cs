@@ -60,6 +60,18 @@ public class AddCourseViewModel : BaseViewModel
         }
     }
 
+    private int _teacherId = -1;
+    public int TeacherId
+    {
+        get => _teacherId;
+        set
+        {
+            _teacherId = value;
+            OnPropertyChanged(nameof(TeacherId));
+            OnPropertyChanged(nameof(CanAdd));
+        }
+    }
+
     public ICommand AddCommand => new RelayCommand(Add, CanAdd);
     public ICommand CloseCommand => new RelayCommand(Close);
 
@@ -70,7 +82,8 @@ public class AddCourseViewModel : BaseViewModel
     private bool CanAdd(object parameter) =>
         !string.IsNullOrWhiteSpace(this._name) &&
         !string.IsNullOrWhiteSpace(this._specialization) &&
-        (this._year != -1);
+        (this._year != -1) &&
+        (this._teacherId != -1);
 
     private static void Add(object parameter)
     {

@@ -118,15 +118,17 @@ public class AdminViewModel : BaseViewModel
         set
         {
             _selectedGroup = value;
-            _groupCourses = _selectedGroup?.GroupCourses.Select(gc => gc.Course).ToList() ?? new();
+            if (value != null)
+                _groupCourses = value.GroupCourses.ToList();
             OnPropertyChanged(nameof(SelectedGroup));
             OnPropertyChanged(nameof(IsGroupSelected));
+            OnPropertyChanged(nameof(GroupCourses));
         }
     }
     public bool IsGroupSelected => SelectedGroup != null;
 
-    private List<Course> _groupCourses;
-    public List<Course> GroupCourses
+    private List<GroupCourse> _groupCourses;
+    public List<GroupCourse> GroupCourses
     {
         get => _groupCourses;
         set
@@ -136,8 +138,8 @@ public class AdminViewModel : BaseViewModel
         }
     }
 
-    private Course? _selectedGroupCourse;
-    public Course? SelectedGroupCourse
+    private GroupCourse? _selectedGroupCourse;
+    public GroupCourse? SelectedGroupCourse
     {
         get => _selectedGroupCourse;
         set
@@ -162,16 +164,17 @@ public class AdminViewModel : BaseViewModel
     public ICommand AddGroupCommand => new RelayCommand(AddGroup);
     public ICommand EditGroupCommand => new RelayCommand(EditGroup, CanActivateGroupCommand);
     public ICommand DeleteGroupCommand => new RelayCommand(DeleteGroup, CanActivateGroupCommand);
-    public ICommand AssignCourseToGroupCommand => new RelayCommand(AssignCourseToGroup);
-    public ICommand RemoveCourseFromGroupCommand => new RelayCommand(RemoveCourseFromGroup);
+    public ICommand AddCourseToGroupCommand => new RelayCommand(AddCourseToGroup);
+    public ICommand RemoveCourseFromGroupCommand => new RelayCommand(RemoveCourseFromGroup, CanActivateGroupCourseCommand);
 
     private void ReloadStudents()
     {
         this.Students = this._dbContext.Students
             .Include(s => s.User)
             .Include(s => s.Group)
-            .Include(s => s.Absences)
             .Include(s => s.Grades)
+            .Include(s => s.Averages)
+            .Include(s => s.Absences)
             .ToList();
         this.SelectedStudent = null;
     }
@@ -351,10 +354,7 @@ public class AdminViewModel : BaseViewModel
 
         if (result == MessageBoxResult.Yes)
         {
-            this._dbContext.Teachers.Remove(new Teacher
-            {
-                Id = SelectedTeacher.Id
-            });
+            this._dbContext.Teachers.Remove(SelectedTeacher);
             this._dbContext.SaveChanges();
 
             this.ReloadTeachers();
@@ -374,6 +374,7 @@ public class AdminViewModel : BaseViewModel
                 Specialization = newViewModel.Specialization,
                 Year = newViewModel.Year,
                 HasThesis = newViewModel.HasThesis,
+                TeacherId = newViewModel.TeacherId,
             });
             this._dbContext.SaveChanges();
 
@@ -393,6 +394,7 @@ public class AdminViewModel : BaseViewModel
         newViewModel.Specialization = SelectedCourse.Specialization;
         newViewModel.Year = SelectedCourse.Year;
         newViewModel.HasThesis = SelectedCourse.HasThesis;
+        newViewModel.TeacherId = SelectedCourse.TeacherId;
 
         if (newView.ShowDialog().GetValueOrDefault())
         {
@@ -400,6 +402,7 @@ public class AdminViewModel : BaseViewModel
             SelectedCourse.Specialization = newViewModel.Specialization;
             SelectedCourse.Year = newViewModel.Year;
             SelectedCourse.HasThesis = newViewModel.HasThesis;
+            SelectedCourse.TeacherId = newViewModel.TeacherId;
 
             this._dbContext.Courses.Update(SelectedCourse);
             this._dbContext.SaveChanges();
@@ -491,7 +494,7 @@ public class AdminViewModel : BaseViewModel
         }
     }
 
-    public void AssignCourseToGroup(object parameter)
+    public void AddCourseToGroup(object parameter)
     {
         if (SelectedGroup == null) return;
         if (SelectedCourse == null) return;
@@ -506,18 +509,21 @@ public class AdminViewModel : BaseViewModel
         this.ReloadGroups();
     }
 
+    public bool CanActivateGroupCourseCommand(object parameter) => SelectedGroupCourse != null;
+
     public void RemoveCourseFromGroup(object parameter)
     {
         if (SelectedGroup == null) return;
         if (SelectedGroupCourse == null) return;
 
-        this._dbContext.GroupCourses.Remove(new GroupCourse
-        {
-            GroupId = SelectedGroup.Id,
-            CourseId = SelectedGroupCourse.Id
-        });
-        this._dbContext.SaveChanges();
+        var result = MessageBox.Show("Are you sure you want to remove this course from the group?", "Remove course", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-        this.ReloadGroups();
+        if (result == MessageBoxResult.Yes)
+        {
+            this._dbContext.GroupCourses.Remove(SelectedGroupCourse);
+            this._dbContext.SaveChanges();
+
+            this.ReloadGroups();
+        }
     }
 }

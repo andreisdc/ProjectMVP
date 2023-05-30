@@ -14,8 +14,8 @@ public class Grade
     public int CourseId { get; set; }
     public Course Course { get; set; }
     public int Value { get; set; }
+    public bool IsThesis { get; set; }
     public DateTime Date { get; set; }
     public string Semester { get; set; }
     public bool IsCanceled { get; set; }
-    public bool IsThesis { get; set; }
 }

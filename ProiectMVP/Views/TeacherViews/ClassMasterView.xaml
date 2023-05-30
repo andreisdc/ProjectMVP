@@ -1,4 +1,4 @@
-﻿<Window x:Class="ProiectMVP.Views.TeacherViews.TeacherView"
+﻿<Window x:Class="ProiectMVP.Views.TeacherViews.ClassMasterView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProiectMVP.Views.TeacherViews"
         xmlns:viewModels="clr-namespace:ProiectMVP.ViewModels.TeacherViewModels"
         mc:Ignorable="d"
-        Title="Teacher - Virtual School" SizeToContent="WidthAndHeight" Background="AliceBlue" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Class Master - Virtual School" SizeToContent="WidthAndHeight" Background="AliceBlue" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Width="1080" Height="620">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,12 +17,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Content="{Binding Path=LoggedInUser.FirstName, FallbackValue='n/a'}" ContentStringFormat="Welcome, {0}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" FontSize="20"/>
             <Button Grid.Column="1" Content="Log out" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="75" Command="{Binding LogOutCommand}"/>
-            <Button Grid.Column="2" Content="My Group" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="75" Command="{Binding OpenClassMasterDashboardCommand}" IsEnabled="{Binding IsClassMaster, FallbackValue=False}"/>
         </Grid>
 
         <TabControl Grid.Row="1" Margin="10">
@@ -70,9 +68,9 @@
 
                                     <Label Grid.Column="0" Content="{Binding SelectedStudentGrade.Value, FallbackValue='none'}" ContentStringFormat="Selected study material: {0}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
 
-                                    <Button Grid.Column="2" Content="Upload" Command="{Binding AddCourseStudyMaterialCommand}"/>
+                                    <Button Grid.Column="2" Content="Upload" Command="{Binding UploadCourseStudyMaterialCommand}"/>
 
-                                    <Button Grid.Column="4" Content="Delete" Command="{Binding RemoveCourseStudyMaterialCommand}" IsEnabled="{Binding Path=IsCourseStudyMaterialSelected}"/>
+                                    <Button Grid.Column="4" Content="Delete" Command="{Binding DeleteCourseStudyMaterialCommand}" IsEnabled="{Binding Path=IsCourseStudyMaterialSelected}"/>
                                 </Grid>
 
                                 <DataGrid Grid.Row="1" Margin="0, 10, 0, 0" ItemsSource="{Binding CourseStudyMaterials}" SelectedItem="{Binding SelectedCourseStudyMaterial, Mode=TwoWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
@@ -143,8 +141,6 @@
                                 <DataGrid Grid.Row="1" Margin="0, 10, 0, 0" ItemsSource="{Binding StudentAbsences}" SelectedItem="{Binding SelectedStudentAbsence, Mode=TwoWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
-                                        <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-                                        <DataGridTextColumn Header="Is cancelled?" Binding="{Binding IsCancelled}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -197,7 +193,7 @@
 
                                     <Label Grid.Column="0" Content="{Binding SelectedStudentAverage.Value, FallbackValue='none'}" ContentStringFormat="Selected average: {0}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
 
-                                    <Button Grid.Column="2" Content="Calculate" Command="{Binding CalculateStudentAverageCommand}"/>
+                                    <Button Grid.Column="2" Content="New" Command="{Binding AddStudentAverageCommand}"/>
 
                                     <Button Grid.Column="4" Content="Cancel" Command="{Binding CancelStudentAverageCommand}" IsEnabled="{Binding Path=IsStudentAverageSelected}"/>
                                 </Grid>

@@ -41,6 +41,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -51,7 +52,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="First Name:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
+                <Label Grid.Column="0" Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
 
                 <TextBox Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
@@ -84,14 +85,25 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="Has Thesis?:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
+                <Label Grid.Column="0" Content="Teacher ID:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
 
-                <CheckBox Grid.Column="1" Margin="10" Content="{Binding HasThesis, Mode=TwoWay}" />
+                <TextBox Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding TeacherId, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
 
-            <Separator Grid.Row="4" Margin="10"/>
+            <Grid Grid.Row="4" Margin="10, 10, 10, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="5" Margin="10">
+                <Label Grid.Column="0" Content="Has Thesis?:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
+
+                <CheckBox Grid.Column="1" Margin="5" IsChecked="{Binding HasThesis, Mode=TwoWay}" />
+            </Grid>
+
+            <Separator Grid.Row="5" Margin="10"/>
+
+            <Grid Grid.Row="6" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>

@@ -22,10 +22,6 @@ public class AuthenticationViewModel : BaseViewModel
     protected AppDbContext _dbContext;
 
     private string _username;
-    private string _password;
-    private string _errorMessage;
-    private bool _isErrorVisible;
-
     public string Username
     {
         get => _username;
@@ -37,6 +33,7 @@ public class AuthenticationViewModel : BaseViewModel
         }
     }
 
+    private string _password;
     public string Password
     {
         get => _password;
@@ -48,6 +45,7 @@ public class AuthenticationViewModel : BaseViewModel
         }
     }
 
+    private string _errorMessage;
     public string ErrorMessage
     {
         get => _errorMessage;
@@ -59,6 +57,7 @@ public class AuthenticationViewModel : BaseViewModel
         }
     }
 
+    private bool _isErrorVisible;
     public bool IsErrorVisible
     {
         get => _isErrorVisible;
