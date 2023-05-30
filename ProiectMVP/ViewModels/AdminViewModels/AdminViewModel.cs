@@ -119,10 +119,9 @@ public class AdminViewModel : BaseViewModel
         {
             _selectedGroup = value;
             if (value != null)
-                _groupCourses = value.GroupCourses.ToList();
+                GroupCourses = value.GroupCourses.ToList();
             OnPropertyChanged(nameof(SelectedGroup));
             OnPropertyChanged(nameof(IsGroupSelected));
-            OnPropertyChanged(nameof(GroupCourses));
         }
     }
     public bool IsGroupSelected => SelectedGroup != null;

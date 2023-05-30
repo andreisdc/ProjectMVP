@@ -28,6 +28,23 @@ public class ClassMasterViewModel : BaseViewModel
     }
 
     /// <summary>
+    ///     The group at which the user is class master.
+    /// </summary>
+    private Group? _group;
+    public Group? Group
+    {
+        get => _group;
+        set
+        {
+            _group = value;
+            OnPropertyChanged(nameof(Group));
+            OnPropertyChanged(nameof(IsGroupSelected));
+        }
+    }
+
+    public bool IsGroupSelected => Group != null;
+
+    /// <summary>
     ///     The list of courses.
     /// </summary>
     private List<Course> _courses;
@@ -50,6 +67,17 @@ public class ClassMasterViewModel : BaseViewModel
             _selectedCourse = value;
             OnPropertyChanged(nameof(SelectedCourse));
             OnPropertyChanged(nameof(IsCourseSelected));
+
+            if (value != null)
+            {
+                _courseStudyMaterials = value.StudyMaterials.ToList();
+                _students = value.GroupCourses
+                    .Select(gc => gc.Group.Students)
+                    .SelectMany(s => s)
+                    .ToList();
+                OnPropertyChanged(nameof(CourseStudyMaterials));
+                OnPropertyChanged(nameof(Students));
+            }
         }
     }
     public bool IsCourseSelected => SelectedCourse != null;
@@ -57,8 +85,8 @@ public class ClassMasterViewModel : BaseViewModel
     /// <summary>
     ///     The list of study materials for the selected course.
     /// </summary>
-    private List<Course> _courseStudyMaterials;
-    public List<Course> CourseStudyMaterials
+    private List<StudyMaterial> _courseStudyMaterials;
+    public List<StudyMaterial> CourseStudyMaterials
     {
         get => _courseStudyMaterials;
         set
@@ -68,8 +96,8 @@ public class ClassMasterViewModel : BaseViewModel
         }
     }
 
-    private Course? _selectedCourseStudyMaterial;
-    public Course? SelectedCourseStudyMaterial
+    private StudyMaterial? _selectedCourseStudyMaterial;
+    public StudyMaterial? SelectedCourseStudyMaterial
     {
         get => _selectedCourseStudyMaterial;
         set
@@ -104,6 +132,16 @@ public class ClassMasterViewModel : BaseViewModel
             _selectedStudent = value;
             OnPropertyChanged(nameof(SelectedStudent));
             OnPropertyChanged(nameof(IsStudentSelected));
+
+            if (value != null)
+            {
+                _studentGrades = value.Grades.ToList();
+                _studentAverages = value.Averages.ToList();
+                _studentAbsences = value.Absences.ToList();
+                OnPropertyChanged(nameof(StudentGrades));
+                OnPropertyChanged(nameof(StudentAverages));
+                OnPropertyChanged(nameof(StudentAbsences));
+            }
         }
     }
     public bool IsStudentSelected => SelectedStudent != null;
@@ -190,28 +228,11 @@ public class ClassMasterViewModel : BaseViewModel
     }
 
     public bool IsStudentAverageSelected => SelectedStudentAverage != null;
-    
-    private void ReloadStudents()
-    {
-        this.Students = this._dbContext.Students
-            .Include(s => s.User)
-            .Include(s => s.Group)
-            .Include(s => s.Grades)
-            .Include(s => s.Averages)
-            .Include(s => s.Absences)
-            .ToList();
-        this.SelectedStudent = null;
-    }
 
-    private void ReloadCourses(int teacherId)
+    private void ReloadCourses()
     {
-        this.Courses = this._dbContext.Courses
-            .Where(c => c.TeacherId == teacherId)
-            .Include(c => c.GroupCourses)
-            .Include(c => c.StudyMaterials)
-            .Include(c => c.Absences)
-            .Include(c => c.Grades)
-            .Include(c => c.Averages)
+        this.Courses = this.Group!.GroupCourses
+            .Select(gc => gc.Course)
             .ToList();
         this.SelectedCourse = null;
     }
@@ -220,6 +241,10 @@ public class ClassMasterViewModel : BaseViewModel
     {
         this._dbContext = dbContext;
         this.LoggedInUser = teacher;
-        this.ReloadCourses(teacher.Id);
+        this.Group = this._dbContext.Groups
+            .Include(g => g.Students)
+            .Include(g => g.GroupCourses)
+            .FirstOrDefault(g => g.ClassMasterId == teacher.Id);
+        if (this.Group != null) this.ReloadCourses();
     }
 }

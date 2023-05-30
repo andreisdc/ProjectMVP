@@ -71,13 +71,11 @@ public class TeacherViewModel : BaseViewModel
 
             if (value != null)
             {
-                _courseStudyMaterials = value.StudyMaterials.ToList();
-                _students = value.GroupCourses
+                CourseStudyMaterials = value.StudyMaterials.ToList();
+                Students = value.GroupCourses
                     .Select(gc => gc.Group.Students)
                     .SelectMany(s => s)
                     .ToList();
-                OnPropertyChanged(nameof(CourseStudyMaterials));
-                OnPropertyChanged(nameof(Students));
             }
         }
     }
@@ -136,12 +134,9 @@ public class TeacherViewModel : BaseViewModel
 
             if (value != null)
             {
-                _studentGrades = value.Grades.ToList();
-                _studentAverages = value.Averages.ToList();
-                _studentAbsences = value.Absences.ToList();
-                OnPropertyChanged(nameof(StudentGrades));
-                OnPropertyChanged(nameof(StudentAverages));
-                OnPropertyChanged(nameof(StudentAbsences));
+                StudentGrades = value.Grades.ToList();
+                StudentAverages = value.Averages.ToList();
+                StudentAbsences = value.Absences.ToList();
             }
         }
     }
@@ -375,6 +370,19 @@ public class TeacherViewModel : BaseViewModel
 
         if (newView.ShowDialog().GetValueOrDefault())
         {
+            var existingThesis = this._dbContext.Grades
+                .FirstOrDefault(g =>
+                    g.StudentId == SelectedStudent.Id &&
+                    g.CourseId == SelectedCourse.Id &&
+                    g.Semester == newViewModel.Semester &&
+                    g.IsThesis == true &&
+                    g.IsCanceled == false);
+            if (existingThesis != null)
+            {
+                MessageBox.Show("A thesis grade for this course and student already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             this._dbContext.Grades.Add(new Grade
             {
                 StudentId = SelectedStudent.Id,
@@ -382,6 +390,7 @@ public class TeacherViewModel : BaseViewModel
                 Value = newViewModel.Value,
                 Date = newViewModel.Date,
                 Semester = newViewModel.Semester,
+                IsThesis = newViewModel.IsThesis,
                 IsCanceled = false,
             });
             this._dbContext.SaveChanges();
@@ -409,6 +418,50 @@ public class TeacherViewModel : BaseViewModel
 
     private void CalculateStudentAverage(object parameter)
     {
+        if (SelectedStudent == null) return;
+        if (SelectedCourse == null) return;
+
+        var result = MessageBox.Show("Are you sure you want to calculate the average?", "Calculate", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            var grades = SelectedCourse.Grades
+                .Where(g => g.StudentId == SelectedStudent.Id)
+                .Where(g => !g.IsCanceled)
+                .Where(g => !g.IsThesis)
+                .ToList();
+
+            if (!grades.Any())
+            {
+                MessageBox.Show("The student does not have any grades!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var thesisGrade = SelectedCourse.Grades
+                .Where(g => g.StudentId == SelectedStudent.Id)
+                .Where(g => !g.IsCanceled)
+                .FirstOrDefault(g => g.IsThesis);
+
+            if (thesisGrade == null)
+            {
+                MessageBox.Show("The student does not have a thesis grade!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var average = (3 * grades.Average(g => g.Value) + thesisGrade.Value) / 4;
+
+            this._dbContext.Averages.Add(new Average
+            {
+                StudentId = SelectedStudent.Id,
+                CourseId = SelectedCourse.Id,
+                Value = average,
+                Date = DateTime.Now,
+                IsCanceled = false,
+            });
+            this._dbContext.SaveChanges();
+
+            this.ReloadCourses();
+        }
     }
 
     private void CancelStudentAverage(object parameter)
