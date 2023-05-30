@@ -49,6 +49,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Course ID" Binding="{Binding Course.Id}"/>
                             <DataGridTextColumn Header="Course name" Binding="{Binding Course.Name}"/>
                             <DataGridTextColumn Header="Course specialization" Binding="{Binding Course.Specialization}"/>
                             <DataGridTextColumn Header="Course year" Binding="{Binding Course.Year}"/>
@@ -64,11 +65,13 @@
                         <DataGridTextColumn Header="Grade" Binding="{Binding Value}"/>
                         <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
                         <DataGridTextColumn Header="Is Thesis?" Binding="{Binding IsThesis}"/>
+                        <DataGridTextColumn Header="Course ID" Binding="{Binding Course.Id}"/>
                         <DataGridTextColumn Header="Course name" Binding="{Binding Course.Name}"/>
                         <DataGridTextColumn Header="Course specialization" Binding="{Binding Course.Specialization}"/>
                         <DataGridTextColumn Header="Course year" Binding="{Binding Course.Year}"/>
                         <DataGridTextColumn Header="Semester" Binding="{Binding Semester}"/>
-                        <DataGridTextColumn Header="Is cancelled?" Binding="{Binding IsCancelled}"/>
+                        <DataGridCheckBoxColumn Header="Is Thesis?" Binding="{Binding IsThesis}"/>
+                        <DataGridCheckBoxColumn Header="Is Cancelled?" Binding="{Binding IsCanceled}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -82,12 +85,11 @@
                         <DataGridTextColumn Header="Course specialization" Binding="{Binding Course.Specialization}"/>
                         <DataGridTextColumn Header="Course year" Binding="{Binding Course.Year}"/>
                         <DataGridTextColumn Header="Semester" Binding="{Binding Semester}"/>
-                        <DataGridTextColumn Header="Is Thesis?" Binding="{Binding IsThesis}"/>
-                        <DataGridTextColumn Header="Is Cancelled?" Binding="{Binding IsCancelled}"/>
+                        <DataGridCheckBoxColumn Header="Is Cancelled?" Binding="{Binding IsCanceled}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Header="Absente">
+            <TabItem Header="Absences">
                 <DataGrid Margin="10" ItemsSource="{Binding Path=Absences}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
@@ -96,7 +98,7 @@
                         <DataGridTextColumn Header="Course specialization" Binding="{Binding Course.Specialization}"/>
                         <DataGridTextColumn Header="Course year" Binding="{Binding Course.Year}"/>
                         <DataGridTextColumn Header="Semester" Binding="{Binding Semester}"/>
-                        <DataGridTextColumn Header="Is Cancelled?" Binding="{Binding IsCancelled}"/>
+                        <DataGridCheckBoxColumn Header="Is Cancelled?" Binding="{Binding IsMotivated}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

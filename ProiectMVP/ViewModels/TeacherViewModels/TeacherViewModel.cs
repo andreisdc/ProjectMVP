@@ -377,6 +377,7 @@ public class TeacherViewModel : BaseViewModel
 
         var newView = new AddStudentGradeView();
         var newViewModel = (AddStudentGradeViewModel)newView.DataContext;
+        newViewModel.HasThesis = this.SelectedCourse.HasThesis;
 
         if (newView.ShowDialog().GetValueOrDefault())
         {
@@ -412,6 +413,12 @@ public class TeacherViewModel : BaseViewModel
     private void CancelStudentGrade(object parameter)
     {
         if (SelectedStudentGrade == null) return;
+
+        if (SelectedStudentGrade.IsCanceled)
+        {
+            MessageBox.Show("Grade already cancelled.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
 
         var result = MessageBox.Show("Are you sure you want to cancel this grade?", "Cancel grade", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 

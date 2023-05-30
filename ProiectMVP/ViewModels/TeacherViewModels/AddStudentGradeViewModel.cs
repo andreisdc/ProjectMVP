@@ -54,6 +54,17 @@ public class AddStudentGradeViewModel : BaseViewModel
         }
     }
 
+    private bool _hasThesis = false;
+    public bool HasThesis
+    {
+        get => _hasThesis;
+        set
+        {
+            _hasThesis = value;
+            OnPropertyChanged(nameof(HasThesis));
+        }
+    }
+
     public ICommand AddCommand => new RelayCommand(Add, CanAdd);
     public ICommand CloseCommand => new RelayCommand(Close);
 

@@ -86,7 +86,7 @@
 
                 <Label Grid.Column="0" Content="Is Thesis?:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
 
-                <CheckBox Grid.Column="1" Margin="5" IsChecked="{Binding IsThesis, Mode=TwoWay}" />
+                <CheckBox Grid.Column="1" Margin="5" IsChecked="{Binding IsThesis, Mode=TwoWay}" IsEnabled="{Binding HasThesis, UpdateSourceTrigger=PropertyChanged, FallbackValue=False}" />
             </Grid>
 
             <Separator Grid.Row="4" Margin="10"/>

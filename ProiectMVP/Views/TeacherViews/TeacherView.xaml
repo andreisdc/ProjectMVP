@@ -145,7 +145,7 @@
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
                                         <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-                                        <DataGridCheckBoxColumn Header="Is motivated?" Binding="{Binding IsMotivated, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridCheckBoxColumn Header="Is Motivated?" Binding="{Binding IsMotivated, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -178,8 +178,8 @@
                                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
                                         <DataGridTextColumn Header="Grade" Binding="{Binding Value}"/>
                                         <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-                                        <DataGridCheckBoxColumn Header="Is Thesis?" Binding="{Binding IsThesis}"/>
-                                        <DataGridCheckBoxColumn Header="Is Cancelled?" Binding="{Binding IsCancelled}"/>
+                                        <DataGridCheckBoxColumn Header="Is Thesis?" Binding="{Binding IsThesis}" />
+                                        <DataGridCheckBoxColumn Header="Is Cancelled?" Binding="{Binding IsCanceled}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -212,7 +212,7 @@
                                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
                                         <DataGridTextColumn Header="Grade" Binding="{Binding Value}"/>
                                         <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-                                        <DataGridCheckBoxColumn Header="Is Cancelled?" Binding="{Binding IsCancelled}"/>
+                                        <DataGridCheckBoxColumn Header="Is Cancelled?" Binding="{Binding IsCanceled}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>

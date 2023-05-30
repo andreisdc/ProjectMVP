@@ -91,6 +91,12 @@ public class StudentViewModel : BaseViewModel
 
     private void LoadData()
     {
+        this.StudyMaterials = this._dbContext.GroupCourses
+            .Where(gc => gc.GroupId == this.LoggedInUser.Student.GroupId)
+            .Include(gc => gc.Course)
+            .SelectMany(gc => gc.Course.StudyMaterials)
+            .ToList();
+
         this.Grades = this._dbContext.Grades
             .Where(g => g.StudentId == this.LoggedInUser.Student.Id)
             .Include(g => g.Course)
