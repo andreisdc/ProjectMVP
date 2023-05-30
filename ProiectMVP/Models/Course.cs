@@ -13,8 +13,9 @@ public class Course
     public string Specialization { get; set; }
     public int Year { get; set; }
     public bool HasThesis { get; set; }
+    public int TeacherId { get; set; }
+    public Teacher Teacher { get; set; }
     public List<GroupCourse> GroupCourses { get; set; }
-    public List<TeacherCourse> TeacherCourses { get; set; }
     public List<StudyMaterial> StudyMaterials { get; set; }
     public List<Absence> Absences { get; set; }
     public List<Grade> Grades { get; set; }
