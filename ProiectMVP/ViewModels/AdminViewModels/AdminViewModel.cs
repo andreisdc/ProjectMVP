@@ -303,7 +303,7 @@ public class AdminViewModel : BaseViewModel
                 LastName = newViewModel.LastName,
                 Username = newViewModel.Username,
                 Password = newViewModel.Password,
-                Role = UserRole.Professor
+                Role = UserRole.Teacher
             };
 
             this._dbContext.Teachers.Add(new Teacher

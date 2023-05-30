@@ -9,7 +9,7 @@ namespace ProiectMVP.Models;
 public enum UserRole
 {
     Admin,
-    Professor,
+    Teacher,
     Student
 }
 

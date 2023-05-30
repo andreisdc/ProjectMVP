@@ -21,8 +21,8 @@ namespace ProiectMVP.Data
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Absence> Absences { get; set; }
         public DbSet<StudyMaterial> StudyMaterials { get; set; }
-        public DbSet<TeacherCourse> TeacherCourses { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Average> Averages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -67,11 +67,6 @@ namespace ProiectMVP.Data
                 .HasForeignKey(sm => sm.CourseId);
 
             modelBuilder.Entity<Course>()
-                .HasMany(s => s.TeacherCourses)
-                .WithOne(ps => ps.Course)
-                .HasForeignKey(ps => ps.CourseId);
-
-            modelBuilder.Entity<Course>()
                 .HasMany(s => s.GroupCourses)
                 .WithOne(ps => ps.Course)
                 .HasForeignKey(ps => ps.CourseId);
@@ -91,6 +86,16 @@ namespace ProiectMVP.Data
                 .WithMany(s => s.Grades)
                 .HasForeignKey(g => g.StudentId);
 
+            //Average
+            modelBuilder.Entity<Average>()
+                .HasOne(a => a.Course)
+                .WithMany(c => c.Averages)
+                .HasForeignKey(a => a.CourseId);
+            modelBuilder.Entity<Average>()
+                .HasOne(a => a.Student)
+                .WithMany(s => s.Averages)
+                .HasForeignKey(a => a.StudentId);
+
             //Absence
             modelBuilder.Entity<Absence>()
                 .HasOne(a => a.Course)
@@ -103,10 +108,6 @@ namespace ProiectMVP.Data
                 .HasForeignKey(a => a.StudentId);
 
             //Teacher
-            modelBuilder.Entity<Teacher>()
-                .HasMany(e => e.TeacherCourses)
-                .WithOne(em => em.Teacher)
-                .HasForeignKey(em => em.TeacherId);
 
             modelBuilder.Entity<Teacher>()
                 .HasOne(e => e.User)
@@ -114,9 +115,10 @@ namespace ProiectMVP.Data
                 .HasForeignKey<Teacher>(e => e.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //TeacherCourse
-            modelBuilder.Entity<TeacherCourse>()
-                .HasKey(tc => new {tc.TeacherId, tc.CourseId});
+            modelBuilder.Entity<Teacher>()
+                .HasMany(e => e.Courses)
+                .WithOne(c => c.Teacher)
+                .HasForeignKey(c => c.TeacherId);
 
             //User
             modelBuilder.Entity<User>()

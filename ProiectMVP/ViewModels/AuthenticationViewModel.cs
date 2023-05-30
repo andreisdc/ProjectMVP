@@ -92,7 +92,7 @@ public class AuthenticationViewModel : BaseViewModel
                 Application.Current.MainWindow.Close();
                 Application.Current.MainWindow = mainView;
             }
-            else if (resultedUser.Role == UserRole.Professor)
+            else if (resultedUser.Role == UserRole.Teacher)
             {
                 var mainView = new TeacherView(this._dbContext, resultedUser);
                 mainView.Show();

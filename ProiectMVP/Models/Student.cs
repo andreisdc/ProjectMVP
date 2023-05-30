@@ -15,4 +15,5 @@ public class Student
     public Group Group { get; set; }
     public List<Absence> Absences { get; set; }
     public List<Grade> Grades { get; set; }
+    public List<Average> Averages { get; set; }
 }

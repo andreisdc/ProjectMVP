@@ -17,4 +17,5 @@ public class Grade
     public DateTime Date { get; set; }
     public string Semester { get; set; }
     public bool IsCanceled { get; set; }
+    public bool IsThesis { get; set; }
 }
