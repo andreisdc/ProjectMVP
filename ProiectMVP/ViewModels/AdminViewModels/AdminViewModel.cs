@@ -419,10 +419,7 @@ public class AdminViewModel : BaseViewModel
 
         if (result == MessageBoxResult.Yes)
         {
-            this._dbContext.Courses.Remove(new Course
-            {
-                Id = SelectedCourse.Id
-            });
+            this._dbContext.Courses.Remove(SelectedCourse);
             this._dbContext.SaveChanges();
 
             this.ReloadCourses();
