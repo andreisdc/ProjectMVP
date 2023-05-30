@@ -90,50 +90,13 @@
                         <Button Grid.Column="6" Content="Delete" Command="{Binding DeleteTeacherCommand}" IsEnabled="{Binding Path=IsTeacherSelected}"/>
                     </Grid>
 
-                    <TabControl Grid.Row="1" Margin="0, 10, 0, 0">
-                        <TabItem Header="List">
-                            <DataGrid Margin="10" ItemsSource="{Binding Path=Teachers}" SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
-                                    <DataGridTextColumn Header="Nume" Binding="{Binding User.LastName}"/>
-                                    <DataGridTextColumn Header="Prenume" Binding="{Binding User.FirstName}"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </TabItem>
-                        <TabItem Header="Courses assigned to">
-                            <Grid Margin="10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-
-                                <Grid Grid.Row="0" Height="30">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="70"/>
-                                        <ColumnDefinition Width="10"/>
-                                        <ColumnDefinition Width="70"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Grid.Column="0" Content="{Binding Path=SelectedTeacherCourse.Name, FallbackValue='none'}" ContentStringFormat="Selected course: {0}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
-
-                                    <Button Grid.Column="2" Content="Assign" Command="{Binding AssignCourseToTeacherCommand}"/>
-
-                                    <Button Grid.Column="4" Content="Unassign" Command="{Binding RemoveCourseFromTeacherCommand}" IsEnabled="{Binding IsTeacherCourseSelected}"/>
-                                </Grid>
-
-                                <DataGrid Grid.Row="1" Margin="0, 10, 0, 0" ItemsSource="{Binding Path=TeacherCourses}" SelectedItem="{Binding SelectedTeacherCourse, Mode=TwoWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
-                                        <DataGridTextColumn Header="Denumire" Binding="{Binding Name}"/>
-                                        <DataGridTextColumn Header="Specializare" Binding="{Binding Specialization}"/>
-                                        <DataGridTextColumn Header="An de Studiu" Binding="{Binding Year}"/>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </Grid>
-                        </TabItem>
-                    </TabControl>
+                    <DataGrid Grid.Row="1" Margin="0, 10, 0, 0" ItemsSource="{Binding Path=Teachers}" SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" IsManipulationEnabled="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" FontWeight="Bold"/>
+                            <DataGridTextColumn Header="Nume" Binding="{Binding User.LastName}"/>
+                            <DataGridTextColumn Header="Prenume" Binding="{Binding User.FirstName}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Group">

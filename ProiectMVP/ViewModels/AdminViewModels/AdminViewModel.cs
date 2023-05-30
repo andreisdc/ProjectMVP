@@ -70,36 +70,11 @@ public class AdminViewModel : BaseViewModel
         set
         {
             _selectedTeacher = value;
-            _teacherCourses = _selectedTeacher?.TeacherCourses.Select(tc => tc.Course).ToList() ?? new();
             OnPropertyChanged(nameof(SelectedTeacher));
             OnPropertyChanged(nameof(IsTeacherSelected));
         }
     }
     public bool IsTeacherSelected => SelectedTeacher != null;
-
-    private List<Course> _teacherCourses;
-    public List<Course> TeacherCourses
-    {
-        get => _teacherCourses;
-        set
-        {
-            _teacherCourses = value;
-            OnPropertyChanged(nameof(TeacherCourses));
-        }
-    }
-
-    private Course? _selectedTeacherCourse;
-    public Course? SelectedTeacherCourse
-    {
-        get => _selectedTeacherCourse;
-        set
-        {
-            _selectedTeacherCourse = value;
-            OnPropertyChanged(nameof(SelectedTeacherCourse));
-            OnPropertyChanged(nameof(IsTeacherCourseSelected));
-        }
-    }
-    public bool IsTeacherCourseSelected => SelectedTeacherCourse != null;
 
     private List<Course> _courses;
     public List<Course> Courses
@@ -181,8 +156,6 @@ public class AdminViewModel : BaseViewModel
     public ICommand AddTeacherCommand => new RelayCommand(AddTeacher);
     public ICommand EditTeacherCommand => new RelayCommand(EditTeacher, CanActivateTeacherCommand);
     public ICommand DeleteTeacherCommand => new RelayCommand(DeleteTeacher, CanActivateTeacherCommand);
-    public ICommand AssignCourseToTeacherCommand => new RelayCommand(AssignCourseToTeacher);
-    public ICommand RemoveCourseFromTeacherCommand => new RelayCommand(RemoveCourseFromTeacher);
     public ICommand AddCourseCommand => new RelayCommand(AddCourse);
     public ICommand EditCourseCommand => new RelayCommand(EditCourse, CanActivateCourseCommand);
     public ICommand DeleteCourseCommand => new RelayCommand(DeleteCourse, CanActivateCourseCommand);
@@ -208,7 +181,6 @@ public class AdminViewModel : BaseViewModel
         this.Teachers = this._dbContext.Teachers
             .Include(t => t.User)
             .Include(t => t.Group)
-            .Include(t => t.TeacherCourses)
             .ToList();
         this.SelectedTeacher = null;
     }
@@ -387,36 +359,6 @@ public class AdminViewModel : BaseViewModel
 
             this.ReloadTeachers();
         }
-    }
-
-    public void AssignCourseToTeacher(object parameter)
-    {
-        if (SelectedTeacher == null) return;
-        if (SelectedCourse == null) return;
-
-        this._dbContext.TeacherCourses.Add(new TeacherCourse
-        {
-            TeacherId = SelectedTeacher.Id,
-            CourseId = SelectedCourse.Id
-        });
-        this._dbContext.SaveChanges();
-
-        this.ReloadTeachers();
-    }
-
-    public void RemoveCourseFromTeacher(object parameter)
-    {
-        if (SelectedTeacher == null) return;
-        if (SelectedTeacherCourse == null) return;
-
-        this._dbContext.TeacherCourses.Remove(new TeacherCourse
-        {
-            TeacherId = SelectedTeacher.Id,
-            CourseId = SelectedTeacherCourse.Id
-        });
-        this._dbContext.SaveChanges();
-
-        this.ReloadTeachers();
     }
 
     public void AddCourse(object parameter)
